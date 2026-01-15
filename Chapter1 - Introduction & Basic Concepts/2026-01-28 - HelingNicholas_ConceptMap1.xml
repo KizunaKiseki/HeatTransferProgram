@@ -1,0 +1,31 @@
+<mxfile host="Drawpyo" modified="2026-01-01T21:46:28" agent="Python 3.13, Drawpyo 0.01" version="21.6.5" type="device">
+  <diagram name="Chapter 1" id="140680806657264">
+    <mxGraphModel dx="2037" dy="830" grid="1" gridSize="10" guides="1" toolTips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="140680806657936" value="encountered" style="whiteSpace=wrap;rounded=0;fillColor=#8fbbd9;dashed=0;inherit=default;shape=parallelogram;perimeter=parelleogramPerimeter;fixedSize=1;" vertex="1" parent="1">
+  <mxGeometry x="0" y="0" width="120" height="80" as="geometry" />
+</mxCell>
+        <mxCell id="140680806464272" value="solve" style="whiteSpace=wrap;rounded=0;fillColor=#ffbf86;dashed=0;inherit=default;shape=parallelogram;perimeter=parelleogramPerimeter;fixedSize=1;" vertex="1" parent="1">
+  <mxGeometry x="0" y="100" width="120" height="80" as="geometry" />
+</mxCell>
+        <mxCell id="140680806464592" value="various" style="whiteSpace=wrap;rounded=0;fillColor=#95cf95;dashed=0;inherit=default;" vertex="1" parent="1">
+  <mxGeometry x="150" y="0" width="120" height="80" as="geometry" />
+</mxCell>
+        <mxCell id="140680713781328" value="heat" style="whiteSpace=wrap;rounded=0;fillColor=#ea9393;dashed=0;inherit=default;shape=hexagon;perimeter=hexagonPerimeter2;fixedSize=1;" vertex="1" parent="1">
+  <mxGeometry x="300" y="0" width="120" height="80" as="geometry" />
+</mxCell>
+        <mxCell id="140680713781648" value="practice" style="whiteSpace=wrap;rounded=0;fillColor=#c9b3de;dashed=0;inherit=default;shape=hexagon;perimeter=hexagonPerimeter2;fixedSize=1;" vertex="1" parent="1">
+  <mxGeometry x="300" y="100" width="120" height="80" as="geometry" />
+</mxCell>
+        <mxCell id="140680713781968" value="transfer" style="whiteSpace=wrap;rounded=0;fillColor=#c5aaa5;dashed=0;inherit=default;shape=hexagon;perimeter=hexagonPerimeter2;fixedSize=1;" vertex="1" parent="1">
+  <mxGeometry x="300" y="200" width="120" height="80" as="geometry" />
+</mxCell>
+        <mxCell id="140680713782288" value="problems" style="whiteSpace=wrap;rounded=0;fillColor=#f1bbe0;dashed=0;inherit=default;shape=hexagon;perimeter=hexagonPerimeter2;fixedSize=1;" vertex="1" parent="1">
+  <mxGeometry x="300" y="300" width="120" height="80" as="geometry" />
+</mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
