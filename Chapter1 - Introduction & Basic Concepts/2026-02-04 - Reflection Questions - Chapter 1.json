@@ -1,0 +1,17 @@
+{
+	"You learned about Fourier\u2019s Law and Newton\u2019s Law of Cooling; identify a common household or industrial object that \"breaks the rules\" or behaves in a way these simple formulas don't easily predict. What is missing? ": [
+		"A heat exchanger is a good example that \"breaks the rules\" for both Fourier's Law and Newtons Law of Cooling. As the heat is moved through the heat exchanger, both fluids, like hot water supply & hot water return, are moving and changing temperatures continuously. Since both laws assume constant temperatures and steady-state, a heat exchanger breaks both of these rules."
+	],
+	"When calculating heat loss, you identified an inefficiency. Who is most negatively impacted by this specific inefficiency, and why has a better solution not been widely adopted yet? ": [
+		"The group that is most negatively impacted by heat loss is the consumer. The consumer often wants to have a comfortable indoor temperature year round. Heat loss through roofs, walls, & windows require more energy to be consumed as HVAC system have to work harder to meet the consumers need. A better method has not yet been adopted because it often involves demoing of existing structures which can lead to a higher upfront cost then simply renovating."
+	],
+	"How might a concept from a completely different field\u2014such as biology (how animals stay warm) or economics (diminishing returns)\u2014change the way you approach a heat transfer design? ": [
+		"Economics and businesses tend to focus on the lowest cost needed for the desired performance instead of maximizing heat transfer. For example, their could be a budget restraint that the HVAC cost per sq ft needs to be under $100. This creates trade-offs when finding optimal system design with long-term energy savings for a company or school."
+	],
+	"If you successfully reduced the heat loss in the system we studied by 50%, what unexpected secondary effects (thermal, environmental, or social) might occur elsewhere in the larger system? ": [
+		"Reducing a system to 50% can lead to oversizing a system which can cause short cycling and overheating. Furthermore, occupants could increase the energy usage by increasing thermostat and heating unoccupied spaces leading to more energy usage. These changes can affect the overall system performance then what it was originally designed."
+	],
+	"If you were tasked with solving this heat transfer problem but were prohibited from using standard insulation or expensive materials, what \"scrap\" or unconventional materials could you leverage to achieve the same goal? ": [
+		"A material I would use to reduce heat loss would be the cardboard used in coffee-cup sleeves. This material traps air within the layers which increase the resistance to heat flow. Another example is foam as it also traps air. Air is a poor heat conductor which also help lower heat loss. Overall, any material that traps air is a great material when trying to reduce heat transfer."
+	]
+}
