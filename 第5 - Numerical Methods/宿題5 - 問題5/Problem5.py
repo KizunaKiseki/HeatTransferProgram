@@ -41,13 +41,13 @@ DELTA_T = 10                                # seconds
 # * FUNCTION *
 # ? ================================================================ ?
 
-def ghost_convection(Tp: float, Bi: float, T_inf: float) -> float:
+def ghost_convection(Tp: float, Bi: float, T_inf: int) -> float:
     """
     Ghost node temperature for convection boundary condition
     Args:
         Tp (float): Temperature at the boundary node
         Bi (float): Biot number
-        T_inf (float): Temperature at infinity
+        T_inf (int): Temperature at infinity
     
     Returns:
         float: Ghost node temperature
@@ -55,7 +55,7 @@ def ghost_convection(Tp: float, Bi: float, T_inf: float) -> float:
     return Tp - 2.0 * Bi * (Tp - T_inf)
 
 
-def update_node(T: np.ndarray, j: int, i: int, fourier_number: float, bi_water: float, bi_air: float, T_inf: float) -> float:
+def update_node(T: np.ndarray, j: int, i: int, fourier_number: float, bi_water: float, bi_air: float, T_inf: int) -> float:
     """
     Update a single node (j, i) using the finite difference method
     
@@ -71,7 +71,7 @@ def update_node(T: np.ndarray, j: int, i: int, fourier_number: float, bi_water: 
         fourier_number (float): Fourier number
         bi_water (float): Biot number for water convection
         bi_air (float): Biot number for air convection
-        T_inf (float): Temperature at infinity
+        T_inf (int): Temperature at infinity
     
     Returns:
         float: Updated temperature at node (j, i)
