@@ -109,6 +109,7 @@ def update_node(T: np.ndarray, j: int, i: int, fourier_number: float, bi_water: 
     # Explicit 2D Finite Difference Update
     return (1.0 -4.0 * fourier_number) * Tp + fourier_number * (T_west + T_east + T_north + T_south)
     
+    
 def plot_temperature(T: np.ndarray, dx: float) -> None:
     """
     Plot the temperature distribution as a contour plot
