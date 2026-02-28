@@ -117,20 +117,25 @@ def plot_temperature(T: np.ndarray, dx: float) -> None:
         T (np.ndarray): Temperature array
         dx (float): Grid spacing in x and y directions
     """
+    # Grid Dimensions
     ny, nx = T.shape
     
+    # Create coordinate arrays for plotting
     x = np.linspace(0, (nx - 1) * dx, nx)
     y = np.linspace(0, (ny - 1) * dx, ny)
     X, Y = np.meshgrid(x, y)
     
+    # Create contour plot
     plt.figure(figsize=(6, 5))
     contour = plt.contourf(X, Y, T, levels=20, cmap='inferno')
     plt.colorbar(contour, label='Temperature (°C)')
     
+    # Plot Labels and Title
     plt.title('Temperature Distribution After 10 Minutes')
     plt.xlabel('Position X (m)')
     plt.ylabel('Position Y (m)')
     
+    # Figure Settings
     plt.gca().set_aspect('equal')    
     plt.show()
 
