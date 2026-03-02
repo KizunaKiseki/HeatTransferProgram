@@ -128,7 +128,7 @@ def plot_temperature(T: np.ndarray, dx: float) -> None:
     
     # Create contour plot
     plt.figure(figsize=(6, 5))
-    contour = plt.contourf(X, Y, T, levels=20, cmap='inferno')
+    contour = plt.contourf(X, Y, np.flipud(T), levels=20, cmap='inferno')
     plt.colorbar(contour, label='Temperature (°C)')
     
     # Plot Labels and Title
