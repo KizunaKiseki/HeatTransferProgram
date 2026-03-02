@@ -44,6 +44,7 @@ DELTA_T = 10                                # seconds
 def ghost_convection(Tp: float, Bi: float, T_inf: int) -> float:
     """
     Ghost node temperature for convection boundary condition
+    
     Args:
         Tp (float): Temperature at the boundary node
         Bi (float): Biot number
