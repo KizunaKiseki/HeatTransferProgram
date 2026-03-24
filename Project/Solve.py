@@ -7,18 +7,22 @@ DESCRIPTION:
 1. [Insert Description Here]
 2. ...
 _____________________________________________________________________
-TO-DO:
-- Describe Next Features
-- ...
+DISCLAIMER:
+- 
 _____________________________________________________________________
-AUTHOR : [Author]
+AUTHOR : Nicholas Heling
 """
 
 # * IMPORTS *
 # ? ================================================================ ?
 
 # ! PYTHON TEMPLATES & LIBRARIES !
+import numpy as np
+import scipy.sparse as sp
 
+import matplotlib.pyplot as pl
+
+# ! PROJECT MODULES !
 
 # * VARIABLES *
 # ? ================================================================ ?

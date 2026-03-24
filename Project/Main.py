@@ -7,11 +7,10 @@ DESCRIPTION:
 1. [Insert Description Here]
 2. ...
 _____________________________________________________________________
-TO-DO:
-- Describe Next Features
-- ...
+DISCLAIMER:
+- 
 _____________________________________________________________________
-AUTHOR : [Author]
+AUTHOR : Nicholas Heling
 """
 
 # * IMPORTS *

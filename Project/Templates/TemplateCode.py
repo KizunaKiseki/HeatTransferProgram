@@ -19,7 +19,7 @@ TO-DO:
 - Describe Next Features
 - ...
 _____________________________________________________________________
-AUTHOR : [Author]
+AUTHOR : Nicholas Heling
 """
 
 # * IMPORTS *

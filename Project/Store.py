@@ -7,27 +7,45 @@ DESCRIPTION:
 1. [Insert Description Here]
 2. ...
 _____________________________________________________________________
-TO-DO:
-- Describe Next Features
-- ...
+DISCLAIMER:
+- 
 _____________________________________________________________________
-AUTHOR : [Author]
+AUTHOR : Nicholas Heling
 """
 
 # * IMPORTS *
 # ? ================================================================ ?
 
 # ! PYTHON TEMPLATES & LIBRARIES !
-
+import pandas
 
 # * VARIABLES *
 # ? ================================================================ ?
-
+N1 = ['n0','n1']
+N2 = ['n0','n1','n2']
 
 # * FUNCTION *
 # ? ================================================================ ?
 
-def function_name():
+def read_mesh(file_name : str) -> dict:
+    """
+    Summary of what the function does
+    
+    Args:
+    
+    
+    Returns:
+    
+    
+    Raises:
+    """
+    
+    
+
+    pass
+
+
+def write_mesh(mesh : dict, file_name : str) -> None:
     """
     Summary of what the function does
     
@@ -45,12 +63,9 @@ def function_name():
     pass
 
 
-# * CLASSES *
-# ? ================================================================ ?
-
-class ClassName:
+def print_mesh(mesh : dict) -> None:
     """
-    Summary of what the class does
+    Summary of what the function does
     
     Args:
     
@@ -61,63 +76,24 @@ class ClassName:
     Raises:
     """
     
-    def __init__(self):
-        """
-        Initializes a new instance of the ClassName class.
-        
-        Args:
-            - self (ClassName): The instance of the class.
-        
-        Returns:
-            
-        
-        Raises:
-        """
-        
-        
-        pass
-
-    def method_name(self):
-        """
-        Summary of what the method does
-        
-        Args:
-            - self (ClassName): The instance of the class.
-        
-        Returns:
-        
-        
-        Raises:
-        """
-        
-        
-        
-        pass
-
-
-# * MAIN *
-# ? ================================================================ ?
-
-def main():
-    """
-    Summary of what the main does
-    
-    Args:
-    
-    
-    Returns:
-    
-    
-    Raises:
-    """
-    # Code Here
     
     
     pass
 
-        
-        
-# * EXECUTE *
-# ? ================================================================ ?
-if __name__ == "__main__":
-    main()
+
+def get_nodes(mesh : dict) -> tuple:
+    """
+    Summary of what the function does
+    
+    Args:
+    
+    
+    Returns:
+    
+    
+    Raises:
+    """
+    
+    
+    
+    pass
