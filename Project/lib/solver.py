@@ -1,11 +1,11 @@
 import numpy as np
 import scipy.sparse as sp
 
-from storage import ℕ1,ℕ2
-from storage import get_nodes
+from Project.lib.storage import ℕ1,ℕ2
+from Project.lib.storage import get_nodes
 
 import matplotlib.pyplot as pl
-import plotting
+import Project.lib.plotting as plotting
 
 
 Δz = 0.01 # m

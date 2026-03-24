@@ -6,8 +6,8 @@ import matplotlib.cm as cm
 import matplotlib.patches as patches
 import matplotlib.path as path
 
-from storage import ℕ1,ℕ2
-from storage import get_nodes
+from Project.lib.storage import ℕ1,ℕ2
+from Project.lib.storage import get_nodes
 
 
 def plot_evolution(Πs,βs,Δts):
