@@ -26,7 +26,8 @@ import matplotlib.patches as patches
 import matplotlib.path as path
 
 # ! PROJECT MODULES !
-
+from Project.Store import N1,N2
+from Project.Store import get_nodes
 
 # * VARIABLES *
 # ? ================================================================ ?
@@ -35,7 +36,7 @@ import matplotlib.path as path
 # * FUNCTION *
 # ? ================================================================ ?
 
-def function_name():
+def plot_evolution():
     """
     Summary of what the function does
     
@@ -52,14 +53,9 @@ def function_name():
     
     pass
 
-
-
-# * MAIN *
-# ? ================================================================ ?
-
-def main():
+def draw_problem():
     """
-    Summary of what the main does
+    Summary of what the function does
     
     Args:
     
@@ -69,14 +65,160 @@ def main():
     
     Raises:
     """
-    # Code Here
+    
     
     
     pass
 
-        
-        
-# * EXECUTE *
-# ? ================================================================ ?
-if __name__ == "__main__":
-    main()
+def draw_solution():
+    """
+    Summary of what the function does
+    
+    Args:
+    
+    
+    Returns:
+    
+    
+    Raises:
+    """
+    
+    
+    
+    pass
+
+def setup_figure():
+    """
+    Summary of what the function does
+    
+    Args:
+    
+    
+    Returns:
+    
+    
+    Raises:
+    """
+    
+    
+    
+    pass
+
+def draw_nodes():
+    """
+    Summary of what the function does
+    
+    Args:
+    
+    
+    Returns:
+    
+    
+    Raises:
+    """
+    
+    
+    
+    pass
+
+def draw_field():
+    """
+    Summary of what the function does
+    
+    Args:
+    
+    
+    Returns:
+    
+    
+    Raises:
+    """
+    
+    
+    
+    pass
+
+def draw_cells():
+    """
+    Summary of what the function does
+    
+    Args:
+    
+    
+    Returns:
+    
+    
+    Raises:
+    """
+    
+    
+    
+    pass
+
+def draw_interior():
+    """
+    Summary of what the function does
+    
+    Args:
+    
+    
+    Returns:
+    
+    
+    Raises:
+    """
+    
+    
+    
+    pass
+
+def draw_exterior():
+    """
+    Summary of what the function does
+    
+    Args:
+    
+    
+    Returns:
+    
+    
+    Raises:
+    """
+    
+    
+    
+    pass
+
+def plot_sparse():
+    """
+    Summary of what the function does
+    
+    Args:
+    
+    
+    Returns:
+    
+    
+    Raises:
+    """
+    
+    
+    
+    pass
+
+def draw_element():
+    """
+    Summary of what the function does
+    
+    Args:
+    
+    
+    Returns:
+    
+    
+    Raises:
+    """
+    
+    
+    
+    pass

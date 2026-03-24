@@ -23,15 +23,17 @@ import scipy.sparse as sp
 import matplotlib.pyplot as pl
 
 # ! PROJECT MODULES !
+from Project.Store import N1,N2
+from Project.Store import get_nodes
 
 # * VARIABLES *
 # ? ================================================================ ?
-
+DELTA_Z = 0.01      # m
 
 # * FUNCTION *
 # ? ================================================================ ?
 
-def function_name():
+def build_x():
     """
     Summary of what the function does
     
@@ -48,14 +50,9 @@ def function_name():
     
     pass
 
-
-
-# * MAIN *
-# ? ================================================================ ?
-
-def main():
+def build_X():
     """
-    Summary of what the main does
+    Summary of what the function does
     
     Args:
     
@@ -65,14 +62,92 @@ def main():
     
     Raises:
     """
-    # Code Here
+    
     
     
     pass
 
-        
-        
-# * EXECUTE *
-# ? ================================================================ ?
-if __name__ == "__main__":
-    main()
+def build_capacity():
+    """
+    Summary of what the function does
+    
+    Args:
+    
+    
+    Returns:
+    
+    
+    Raises:
+    """
+    
+    
+    
+    pass
+
+def build_conduction():
+    """
+    Summary of what the function does
+    
+    Args:
+    
+    
+    Returns:
+    
+    
+    Raises:
+    """
+    
+    
+    
+    pass
+
+def build_generation():
+    """
+    Summary of what the function does
+    
+    Args:
+    
+    
+    Returns:
+    
+    
+    Raises:
+    """
+    
+    
+    
+    pass
+
+def steady_BCs():
+    """
+    Summary of what the function does
+    
+    Args:
+    
+    
+    Returns:
+    
+    
+    Raises:
+    """
+    
+    
+    
+    pass
+
+def transient_BCs():
+    """
+    Summary of what the function does
+    
+    Args:
+    
+    
+    Returns:
+    
+    
+    Raises:
+    """
+    
+    
+    
+    pass
