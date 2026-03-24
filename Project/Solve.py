@@ -33,7 +33,7 @@ DELTA_Z = 0.01      # m
 # * FUNCTION *
 # ? ================================================================ ?
 
-def build_x():
+def build_x(x, y) -> np.ndarray:
     """
     Summary of what the function does
     
@@ -50,7 +50,7 @@ def build_x():
     
     pass
 
-def build_X():
+def build_X(x, y) -> np.ndarray:
     """
     Summary of what the function does
     
@@ -67,7 +67,7 @@ def build_X():
     
     pass
 
-def build_capacity():
+def build_capacity(mesh : dict) -> sp.dok_array:
     """
     Summary of what the function does
     
@@ -84,7 +84,7 @@ def build_capacity():
     
     pass
 
-def build_conduction():
+def build_conduction(mesh : dict) -> sp.dok_array:
     """
     Summary of what the function does
     
@@ -101,7 +101,7 @@ def build_conduction():
     
     pass
 
-def build_generation():
+def build_generation(mesh : dict) -> np.ndarray:
     """
     Summary of what the function does
     

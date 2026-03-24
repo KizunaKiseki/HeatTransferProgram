@@ -53,7 +53,7 @@ def plot_evolution():
     
     pass
 
-def draw_problem():
+def draw_problem(mesh: dict) -> pl.figure:
     """
     Summary of what the function does
     
@@ -70,7 +70,7 @@ def draw_problem():
     
     pass
 
-def draw_solution():
+def draw_solution(mesh: dict, Temperature : np.ndarray) -> pl.figure:
     """
     Summary of what the function does
     
@@ -87,7 +87,7 @@ def draw_solution():
     
     pass
 
-def setup_figure():
+def setup_figure() -> tuple[pl.figure, pl.axes]:
     """
     Summary of what the function does
     
@@ -104,7 +104,7 @@ def setup_figure():
     
     pass
 
-def draw_nodes():
+def draw_nodes(axes : pl.axes, mesh: dict, x, y) -> None:
     """
     Summary of what the function does
     
@@ -138,7 +138,7 @@ def draw_field():
     
     pass
 
-def draw_cells():
+def draw_cells(axes : pl.axes, mesh: dict, x,  y) -> None:
     """
     Summary of what the function does
     
@@ -155,7 +155,7 @@ def draw_cells():
     
     pass
 
-def draw_interior():
+def draw_interior(axes : pl.axes, mesh: dict, x, y) -> None:
     """
     Summary of what the function does
     
@@ -172,7 +172,7 @@ def draw_interior():
     
     pass
 
-def draw_exterior():
+def draw_exterior(axes : pl.axes, mesh: dict, x, y) -> None:
     """
     Summary of what the function does
     
@@ -206,7 +206,7 @@ def plot_sparse():
     
     pass
 
-def draw_element():
+def draw_element(mesh: dict, element_index : int, x, y) -> None:
     """
     Summary of what the function does
     
