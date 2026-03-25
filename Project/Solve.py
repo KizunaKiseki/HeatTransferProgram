@@ -33,7 +33,7 @@ DELTA_Z = 0.01      # m
 # * FUNCTION *
 # ? ================================================================ ?
 
-def build_x(x, y) -> np.ndarray:
+def build_dual_mesh_matrix(x_coordinate : np.ndarray, y_coordinate : np.ndarray) -> np.ndarray:
     """
     Summary of what the function does
     
@@ -50,7 +50,7 @@ def build_x(x, y) -> np.ndarray:
     
     pass
 
-def build_X(x, y) -> np.ndarray:
+def build_shape_function_matrix(x_coordinate : np.ndarray, y_coordinate : np.ndarray) -> np.ndarray:
     """
     Summary of what the function does
     
@@ -67,7 +67,7 @@ def build_X(x, y) -> np.ndarray:
     
     pass
 
-def build_capacity(mesh : dict) -> sp.dok_array:
+def build_capacity_matrix(mesh : dict) -> sp.dok_array:
     """
     Summary of what the function does
     
@@ -84,7 +84,7 @@ def build_capacity(mesh : dict) -> sp.dok_array:
     
     pass
 
-def build_conduction(mesh : dict) -> sp.dok_array:
+def build_conduction_matrix(mesh : dict) -> sp.dok_array:
     """
     Summary of what the function does
     
@@ -101,7 +101,7 @@ def build_conduction(mesh : dict) -> sp.dok_array:
     
     pass
 
-def build_generation(mesh : dict) -> np.ndarray:
+def build_generation_vector(mesh : dict) -> np.ndarray:
     """
     Summary of what the function does
     
@@ -118,7 +118,7 @@ def build_generation(mesh : dict) -> np.ndarray:
     
     pass
 
-def steady_BCs():
+def steady_BCs(mesh : dict, conduction_matrix : sp.dok_array, generation_matrix : np.ndarray) -> None:
     """
     Summary of what the function does
     
@@ -135,7 +135,7 @@ def steady_BCs():
     
     pass
 
-def transient_BCs():
+def transient_BCs(mesh : dict, capacity_matrix : sp.dok_array, conduction_matrix : sp.dok_array, generation_vector : np.ndarray, temperature_vector : np.ndarray) -> None:
     """
     Summary of what the function does
     
