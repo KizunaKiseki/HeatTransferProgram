@@ -36,7 +36,7 @@ from Project.Store import get_nodes
 # * FUNCTION *
 # ? ================================================================ ?
 
-def plot_evolution():
+def plot_evolution(solution_array : list[np.ndarray], method_types : list[str], time_steps : list[float]) -> pl.figure:
     """
     Summary of what the function does
     
@@ -70,7 +70,7 @@ def draw_problem(mesh: dict) -> pl.figure:
     
     pass
 
-def draw_solution(mesh: dict, Temperature : np.ndarray) -> pl.figure:
+def draw_solution(mesh: dict, temperature_vector : np.ndarray) -> pl.figure:
     """
     Summary of what the function does
     
@@ -104,7 +104,7 @@ def setup_figure() -> tuple[pl.figure, pl.axes]:
     
     pass
 
-def draw_nodes(axes : pl.axes, mesh: dict, x, y) -> None:
+def draw_nodes(axes : pl.axes, mesh: dict, x_coordinate : np.ndarray, y_coordinate : np.ndarray) -> None:
     """
     Summary of what the function does
     
@@ -121,7 +121,7 @@ def draw_nodes(axes : pl.axes, mesh: dict, x, y) -> None:
     
     pass
 
-def draw_field():
+def draw_field(axes : pl.axes, mesh: dict, x_coordinate : np.ndarray, y_coordinate : np.ndarray, field : np.ndarray, name : str) -> None:
     """
     Summary of what the function does
     
@@ -138,7 +138,7 @@ def draw_field():
     
     pass
 
-def draw_cells(axes : pl.axes, mesh: dict, x,  y) -> None:
+def draw_cells(axes : pl.axes, mesh: dict, x_coordinate : np.ndarray, y_coordinate : np.ndarray) -> None:
     """
     Summary of what the function does
     
@@ -155,7 +155,7 @@ def draw_cells(axes : pl.axes, mesh: dict, x,  y) -> None:
     
     pass
 
-def draw_interior(axes : pl.axes, mesh: dict, x, y) -> None:
+def draw_interior(axes : pl.axes, mesh: dict, x_coordinate : np.ndarray, y_coordinate : np.ndarray) -> None:
     """
     Summary of what the function does
     
@@ -172,7 +172,7 @@ def draw_interior(axes : pl.axes, mesh: dict, x, y) -> None:
     
     pass
 
-def draw_exterior(axes : pl.axes, mesh: dict, x, y) -> None:
+def draw_exterior(axes : pl.axes, mesh: dict, x_coordinate : np.ndarray, y_coordinate : np.ndarray) -> None:
     """
     Summary of what the function does
     
@@ -206,7 +206,7 @@ def plot_sparse():
     
     pass
 
-def draw_element(mesh: dict, element_index : int, x, y) -> None:
+def draw_element(mesh: dict, element_conduction_matrix : sp.dok_array, x_coordinate : np.ndarray, y_coordinate : np.ndarray) -> None:
     """
     Summary of what the function does
     

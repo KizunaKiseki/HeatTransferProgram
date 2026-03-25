@@ -50,7 +50,7 @@ def build_dual_mesh_matrix(x_coordinate : np.ndarray, y_coordinate : np.ndarray)
     
     pass
 
-def build_shape_function_matrix(x_coordinate : np.ndarray, y_coordinate : np.ndarray) -> np.ndarray:
+def build_shape_matrix(x_coordinate : np.ndarray, y_coordinate : np.ndarray) -> np.ndarray:
     """
     Summary of what the function does
     
