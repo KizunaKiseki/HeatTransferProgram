@@ -44,7 +44,6 @@ def read_mesh(file_name : str) -> dict:
 
     pass
 
-
 def write_mesh(mesh : dict, file_name : str) -> None:
     """
     Summary of what the function does
@@ -62,7 +61,6 @@ def write_mesh(mesh : dict, file_name : str) -> None:
     
     pass
 
-
 def print_mesh(mesh : dict) -> None:
     """
     Summary of what the function does
@@ -79,7 +77,6 @@ def print_mesh(mesh : dict) -> None:
     
     
     pass
-
 
 def get_nodes(mesh : dict) -> tuple:
     """
