@@ -19,6 +19,7 @@ AUTHOR : Nicholas Heling
 # ! PYTHON TEMPLATES & LIBRARIES !
 import numpy as np
 import matplotlib.pyplot as pl
+import scipy.sparse as sp
 
 import matplotlib
 import matplotlib.cm as cm
