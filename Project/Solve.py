@@ -135,7 +135,8 @@ def steady_BCs(mesh : dict, conduction_matrix : sp.dok_array, generation_matrix 
     
     pass
 
-def transient_BCs(mesh : dict, capacity_matrix : sp.dok_array, conduction_matrix : sp.dok_array, generation_vector : np.ndarray, temperature_vector : np.ndarray) -> None:
+def transient_BCs(mesh : dict, capacity_matrix : sp.dok_array, conduction_matrix : sp.dok_array, 
+                  generation_vector : np.ndarray, temperature_vector : np.ndarray) -> None:
     """
     Summary of what the function does
     

@@ -122,7 +122,8 @@ def draw_nodes(axes : pl.axes, mesh: dict, x_coordinate : np.ndarray, y_coordina
     
     pass
 
-def draw_field(axes : pl.axes, mesh: dict, x_coordinate : np.ndarray, y_coordinate : np.ndarray, field : np.ndarray, name : str) -> None:
+def draw_field(axes : pl.axes, mesh: dict, x_coordinate : np.ndarray, 
+               y_coordinate : np.ndarray, field : np.ndarray, name : str) -> None:
     """
     Summary of what the function does
     
@@ -207,7 +208,8 @@ def plot_sparse():
     
     pass
 
-def draw_element(mesh: dict, element_conduction_matrix : sp.dok_array, x_coordinate : np.ndarray, y_coordinate : np.ndarray) -> None:
+def draw_element(mesh: dict, element_conduction_matrix : sp.dok_array, 
+                 x_coordinate : np.ndarray, y_coordinate : np.ndarray) -> None:
     """
     Summary of what the function does
     
