@@ -33,7 +33,7 @@ def build_capacity(mesh):
 		xₜ = xₙ[n]
 		yₜ = yₙ[n]
 		
-		pass
+		# TODO: Implement Equations 22
 		
 		C[I,J] += Cₑ
 	
@@ -52,6 +52,8 @@ def build_conduction(mesh):
 		xₜ = xₙ[n]
 		yₜ = yₙ[n]
 		
+		# TODO: Implement Equation 18
+  
 		pass
 		
 		I = n.reshape(3,1)
@@ -73,6 +75,9 @@ def build_generation(mesh):
 		xₜ = xₙ[n]
 		yₜ = yₙ[n]
 		
+		# TODO: Equation 26 ??? 
+		# TODO: Implement one for steady and transient (if statements)
+  
 		pass
 		
 		E[n] += e*V
@@ -91,6 +96,8 @@ def steady_BCs(mesh,K,E):
 		qₑ = mesh['BC']['q'][cid]
 		
 		if np.isfinite(qₑ):
+      
+			# TODO: Implement Equation 39 
 			pass
 	
 	for kₑ in range(Nₑ):
@@ -98,6 +105,8 @@ def steady_BCs(mesh,K,E):
 		cid = mesh['BE']['cid'][kₑ]
 		Tₑ = mesh['BC']['T'][cid]
 		if np.isfinite(Tₑ):
+      
+			# TODO: Fixed Temperature???
 			pass
 
 
@@ -112,6 +121,8 @@ def transient_BCs(mesh,C,K,E,T):
 		Tₑ = mesh['BC']['T'][cid]
 		qₑ = mesh['BC']['q'][cid]
 		if np.isfinite(Tₑ):
+			# TODO: 
 			pass
 		if np.isfinite(qₑ):
+			# TODO: Implement Equation 39 and multiply it by delta t
 			pass
