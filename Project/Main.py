@@ -19,6 +19,11 @@ AUTHOR : Nicholas Heling
 # ! PYTHON TEMPLATES & LIBRARIES !
 import argparse as ap
 
+# ! PROJECT MODULES !
+from Project.Store import *
+from Project.Solve import * 
+from Project.Plot import *
+
 # * VARIABLES *
 # ? ================================================================ ?
 
