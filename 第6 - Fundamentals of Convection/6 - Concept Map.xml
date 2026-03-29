@@ -1,0 +1,34 @@
+<mxfile host="Drawpyo" modified="2026-01-21T06:33:35" agent="Python 3.14, Drawpyo 0.23" version="21.6.5" type="device">
+  <diagram name="Chapter 6" id="139947952433072">
+    <mxGraphModel dx="2037" dy="830" grid="1" gridSize="10" guides="1" toolTips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="139947952434080" value="functional" style="whiteSpace=wrap;rounded=0;fillColor=#8fbbd9;dashed=0;inherit=default;" vertex="1" parent="1">
+  <mxGeometry x="150" y="0" width="120" height="80" as="geometry" />
+</mxCell>
+        <mxCell id="139947952435088" value="momentum" style="whiteSpace=wrap;rounded=0;fillColor=#ffbf86;dashed=0;inherit=default;shape=hexagon;perimeter=hexagonPerimeter2;fixedSize=1;" vertex="1" parent="1">
+  <mxGeometry x="300" y="0" width="120" height="80" as="geometry" />
+</mxCell>
+        <mxCell id="139947952435424" value="knowledge" style="whiteSpace=wrap;rounded=0;fillColor=#95cf95;dashed=0;inherit=default;shape=hexagon;perimeter=hexagonPerimeter2;fixedSize=1;" vertex="1" parent="1">
+  <mxGeometry x="300" y="100" width="120" height="80" as="geometry" />
+</mxCell>
+        <mxCell id="139947952435760" value="friction" style="whiteSpace=wrap;rounded=0;fillColor=#ea9393;dashed=0;inherit=default;shape=hexagon;perimeter=hexagonPerimeter2;fixedSize=1;" vertex="1" parent="1">
+  <mxGeometry x="300" y="200" width="120" height="80" as="geometry" />
+</mxCell>
+        <mxCell id="139947952436096" value="convection" style="whiteSpace=wrap;rounded=0;fillColor=#c9b3de;dashed=0;inherit=default;shape=hexagon;perimeter=hexagonPerimeter2;fixedSize=1;" vertex="1" parent="1">
+  <mxGeometry x="300" y="300" width="120" height="80" as="geometry" />
+</mxCell>
+        <mxCell id="139947952436432" value="heat" style="whiteSpace=wrap;rounded=0;fillColor=#c5aaa5;dashed=0;inherit=default;shape=hexagon;perimeter=hexagonPerimeter2;fixedSize=1;" vertex="1" parent="1">
+  <mxGeometry x="300" y="400" width="120" height="80" as="geometry" />
+</mxCell>
+        <mxCell id="139947952436768" value="coefficient" style="whiteSpace=wrap;rounded=0;fillColor=#f1bbe0;dashed=0;inherit=default;shape=hexagon;perimeter=hexagonPerimeter2;fixedSize=1;" vertex="1" parent="1">
+  <mxGeometry x="300" y="500" width="120" height="80" as="geometry" />
+</mxCell>
+        <mxCell id="139947952437104" value="transfer" style="whiteSpace=wrap;rounded=0;fillColor=#bfbfbf;dashed=0;inherit=default;shape=hexagon;perimeter=hexagonPerimeter2;fixedSize=1;" vertex="1" parent="1">
+  <mxGeometry x="300" y="600" width="120" height="80" as="geometry" />
+</mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
