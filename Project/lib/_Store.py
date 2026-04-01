@@ -101,7 +101,7 @@ def print_mesh(mesh : dict) -> None:
         if k != 0:
             print()
         
-        print(f'=== {sheet} ===')
+        print(f'{sheet}'.center(20, '='))
         print(data)
 
 
@@ -118,6 +118,7 @@ def get_nodes(mesh : dict) -> tuple:
     """
     x = mesh['XY']['x'].values
     y = mesh['XY']['y'].values
+    
     
     return x, y
 
