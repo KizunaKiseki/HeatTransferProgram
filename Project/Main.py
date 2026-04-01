@@ -73,7 +73,7 @@ def main():
     args = parser.parse_args()
     
     try:
-        mesh_data = _Store.read_mesh(args.mesh_xlsx)
+        mesh_data = _store.read_mesh(args.mesh_xlsx)
         
         print("✅ Mesh data successfully read from file.")
     
