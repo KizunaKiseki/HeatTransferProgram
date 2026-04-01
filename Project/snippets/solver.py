@@ -1,11 +1,11 @@
 import numpy as np
 import scipy.sparse as sp
 
-from Project.snippets.storage import ℕ1,ℕ2
-from Project.snippets.storage import get_nodes
+from snippets.storage import ℕ1,ℕ2
+from snippets.storage import get_nodes
 
 import matplotlib.pyplot as pl
-import Project.snippets.plotting as plotting
+import snippets.plotting as plotting
 
 
 Δz = 0.01 # m

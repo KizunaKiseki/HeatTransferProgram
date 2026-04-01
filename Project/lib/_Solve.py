@@ -23,8 +23,9 @@ import scipy.sparse as sp
 import matplotlib.pyplot as pl
 
 # ! PROJECT MODULES !
-from Project.lib._Store import N1,N2
-from Project.lib._Store import get_nodes
+from lib._Store import N1,N2
+from lib._Store import get_nodes
+import lib._Plot as _plot
 
 # * VARIABLES *
 # ? ================================================================ ?

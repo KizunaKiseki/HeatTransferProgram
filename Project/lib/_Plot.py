@@ -27,8 +27,8 @@ import matplotlib.patches as patches
 import matplotlib.path as path
 
 # ! PROJECT MODULES !
-from Project.lib._Store import N1,N2
-from Project.lib._Store import get_nodes
+from lib._Store import N1,N2
+from lib._Store import get_nodes
 
 # * VARIABLES *
 # ? ================================================================ ?
