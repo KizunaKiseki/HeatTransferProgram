@@ -20,9 +20,9 @@ AUTHOR : Nicholas Heling
 import argparse as ap
 
 # ! PROJECT MODULES !
-import Project.Store as _Store
-import Project.Solve as _Solve
-import Project.Plot as _Plot
+import Project.lib._Store as _Store
+import Project.lib._Solve as _Solve
+import Project.lib._Plot as _Plot
 
 # * VARIABLES *
 # ? ================================================================ ?
