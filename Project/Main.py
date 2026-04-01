@@ -20,9 +20,9 @@ AUTHOR : Nicholas Heling
 import argparse as ap
 
 # ! PROJECT MODULES !
-from Project.Store import *
-from Project.Solve import * 
-from Project.Plot import *
+from HeatTransferProject.Store import *
+from HeatTransferProject.Solve import * 
+from HeatTransferProject.Plot import *
 
 # * VARIABLES *
 # ? ================================================================ ?
@@ -64,11 +64,23 @@ def main():
     
     Raises:
     """
-    # Code Here
+    # Parse Commands
+    parser = ap.ArgumentParser(description="Description of the program")
+    parser.add_argument('mesh_xlsx', type = str, help='The name of the Excel file containing the mesh data.')
     
+    # Parse Argument Command
+    # ! python (file_path)Main.py (file_path)mesh.xlsx !
+    args = parser.parse_args()
     
-    pass
-
+    try:
+        mesh_data = read_mesh(args.mesh_xlsx)
+        
+        print("✅ Mesh data successfully read from file.")
+    
+    except FileNotFoundError:
+        print(f"❎ The file {args.mesh_xlsx} was not found.")
+    except Exception as e:
+        print(f"❎ An error occurred while reading the mesh: {e}")
         
         
 # * EXECUTE *
