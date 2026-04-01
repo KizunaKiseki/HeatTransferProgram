@@ -8,7 +8,8 @@ DESCRIPTION:
 2. ...
 _____________________________________________________________________
 DISCLAIMER:
-- 
+- Portions of this code were developed with AI autocomplete tools.
+- These tools were used to improve coding efficiency and syntax accuracy.
 _____________________________________________________________________
 AUTHOR : Nicholas Heling
 """
@@ -17,7 +18,7 @@ AUTHOR : Nicholas Heling
 # ? ================================================================ ?
 
 # ! PYTHON TEMPLATES & LIBRARIES !
-import pandas
+import pandas as pd
 
 # * VARIABLES *
 # ? ================================================================ ?
@@ -39,25 +40,30 @@ def read_mesh(file_name : str) -> dict:
     
     Raises:
         FileNotFoundError: If the specified file does not exist.
-        Exception: If any other error occurs during the reading process.
+        Exception: For any I/O errors or issues while reading the file.
     """
     try:
+        # Types for all columns in short form
         types = {
             str: 'name color',
             int: 'id material n0 n1 n2',
             float: 'x y T q rho k C',
         }
         
+        # Invert types dictionary for pandas format
         conv = {
             column: dtype
             for dtype, columns in types.items()
             for column in columns.split()
         }
 
-        mesh = pandas.read_excel(file_name, None, converters=conv)
+        # Read all sheets in file as dataframes
+        mesh = pd.read_excel(file_name, None, converters=conv)
+        
         
         return mesh
     
+    # Handle file not found and other exceptions
     except FileNotFoundError:
         raise
     except Exception as e:
@@ -66,51 +72,52 @@ def read_mesh(file_name : str) -> dict:
 
 def write_mesh(mesh : dict, file_name : str) -> None:
     """
-    Summary of what the function does
+    This function writes a mesh dictionary to an Excel file.
     
     Args:
-    
+        mesh (dict): A dictionary containing the mesh data.
+        file_name (str): The name of the Excel file.
     
     Returns:
-    
-    
-    Raises:
+        None
     """
-    
-    
-    
-    pass
+    with pd.ExcelWriter(file_name) as excel:
+        
+        for (sheet, data) in mesh.items():
+            data.to_excel(excel, sheet_name=sheet, index=False)
+
 
 def print_mesh(mesh : dict) -> None:
     """
-    Summary of what the function does
+    This function prints the contents of a mesh dictionary in a readable format.
     
     Args:
-    
+        mesh (dict): A dictionary containing the mesh data.
     
     Returns:
-    
-    
-    Raises:
+        None
     """
-    
-    
-    
-    pass
+    for (k, (sheet, data)) in enumerate(mesh.items()):
+        if k != 0:
+            print()
+        
+        print(f'=== {sheet} ===')
+        print(data)
+
 
 def get_nodes(mesh : dict) -> tuple:
     """
-    Summary of what the function does
+    This function gets the x and y coordinates of the nodes from the mesh dictionary.
     
     Args:
-    
+        mesh (dict): A dictionary containing the mesh data.
     
     Returns:
-    
-    
-    Raises:
+        x (tuple): A tuple containing the x coordinates of the nodes.
+        y (tuple): A tuple containing the y coordinates of the nodes.
     """
+    x = mesh['XY']['x'].values
+    y = mesh['XY']['y'].values
     
-    
-    
-    pass
+    return x, y
+

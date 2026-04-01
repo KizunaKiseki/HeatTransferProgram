@@ -8,7 +8,8 @@ DESCRIPTION:
 2. ...
 _____________________________________________________________________
 DISCLAIMER:
-- 
+- Portions of this code were developed with AI autocomplete tools.
+- These tools were used to improve coding efficiency and syntax accuracy.
 _____________________________________________________________________
 AUTHOR : Nicholas Heling
 """
@@ -74,9 +75,13 @@ def main():
     
     try:
         mesh_data = _store.read_mesh(args.mesh_xlsx)
+
+        # Output success message and prints the mesh data
+        print("✅ Mesh data successfully read from the file.")
+        _store.print_mesh(mesh_data)
         
-        print("✅ Mesh data successfully read from file.")
-    
+
+        
     except FileNotFoundError:
         print(f"❎ The file {args.mesh_xlsx} was not found.")
     except Exception as e:
