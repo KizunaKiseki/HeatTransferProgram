@@ -20,9 +20,9 @@ AUTHOR : Nicholas Heling
 import argparse as ap
 
 # ! PROJECT MODULES !
-from Project.Store import *
-from Project.Solve import * 
-from Project.Plot import *
+import Project.Store as _Store
+import Project.Solve as _Solve
+import Project.Plot as _Plot
 
 # * VARIABLES *
 # ? ================================================================ ?
@@ -73,7 +73,7 @@ def main():
     args = parser.parse_args()
     
     try:
-        mesh_data = read_mesh(args.mesh_xlsx)
+        mesh_data = _Store.read_mesh(args.mesh_xlsx)
         
         print("✅ Mesh data successfully read from file.")
     
