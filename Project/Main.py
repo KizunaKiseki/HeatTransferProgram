@@ -20,9 +20,9 @@ AUTHOR : Nicholas Heling
 import argparse as ap
 
 # ! PROJECT MODULES !
-from HeatTransferProject.Store import *
-from HeatTransferProject.Solve import * 
-from HeatTransferProject.Plot import *
+from Project.Store import *
+from Project.Solve import * 
+from Project.Plot import *
 
 # * VARIABLES *
 # ? ================================================================ ?
