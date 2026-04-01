@@ -80,8 +80,7 @@ def main():
         print("✅ Mesh data successfully read from the file.")
         _store.print_mesh(mesh_data)
         
-
-        
+  
     except FileNotFoundError:
         print(f"❎ The file {args.mesh_xlsx} was not found.")
     except Exception as e:
