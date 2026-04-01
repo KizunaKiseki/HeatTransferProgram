@@ -113,12 +113,12 @@ def get_nodes(mesh : dict) -> tuple:
         mesh (dict): A dictionary containing the mesh data.
     
     Returns:
-        x (tuple): A tuple containing the x coordinates of the nodes.
-        y (tuple): A tuple containing the y coordinates of the nodes.
+        x_coordinate (tuple): A tuple containing the x coordinates of the nodes.
+        y_coordinate (tuple): A tuple containing the y coordinates of the nodes.
     """
-    x = mesh['XY']['x'].values
-    y = mesh['XY']['y'].values
+    x_coordinate = mesh['XY']['x'].values
+    y_coordinate = mesh['XY']['y'].values
     
     
-    return x, y
+    return x_coordinate, y_coordinate
 

@@ -28,7 +28,7 @@ import matplotlib.patches as patches
 import matplotlib.path as path
 
 # ! PROJECT MODULES !
-from lib._Store import N1,N2
+from lib._Store import N1, N2
 from lib._Store import get_nodes
 
 # * VARIABLES *
@@ -40,20 +40,38 @@ from lib._Store import get_nodes
 
 def plot_evolution(solution_array : list[np.ndarray], method_types : list[str], time_steps : list[float]) -> pl.figure:
     """
-    Summary of what the function does
+    Plots the evolution of temperature over time for different methods and time steps.
+    The different methods are:
+        ➀ Explicit
+        ➁ Implicit 
+        ➂ Semi-Implicit
     
     Args:
-    
+        solution_array (list[np.ndarray]): A list of solution arrays. 
+        method_types (list[str]): A list of strings indicating the method type.
+        time_steps (list[float]): A list of time step values corresponding to each solution/method.
     
     Returns:
-    
-    
-    Raises:
+        figure (pl.figure): A Matplotlib figure object containing the plot of temperature evolution.
     """
+    plot_evolution_figure = pl.figure()
+    
+    # Axes & Line Styles
+    plot_evolution_axes = figure.add_subplot(1,1,1)
+    plot_evolution_axes.set_xlabel('Time, $t$ [hr]')
+    plot_evolution_axes.set_ylabel('Temperature, $T$ [K]')
+    line_styles = ['-','--',':']
+    
+    # Plot each solution array with corresponding method and time step
+    for(k, (solution, method, time_step)) in enumerate(zip(solution_array, method_types, time_steps)):
+        time_values, temperature_values = solution.T
+        plot_evolution_axes.plot(time_values/3600, temperature_values, f'{line_styles[k]}C{k}', label=f'β={method}; Δt={time_step}')
+    
+    plot_evolution_axes.legend()
     
     
-    
-    pass
+    return plot_evolution_figure
+
 
 def draw_problem(mesh: dict) -> pl.figure:
     """
