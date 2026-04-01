@@ -101,7 +101,7 @@ def print_mesh(mesh : dict) -> None:
         if k != 0:
             print()
         
-        print(f'{sheet}'.center(50, '='))
+        print(f'= {sheet} ='.center(46, '='))
         print(data)
 
 
