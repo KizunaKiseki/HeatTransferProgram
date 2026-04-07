@@ -24,8 +24,7 @@ import scipy.sparse as sp
 import matplotlib.pyplot as pl
 
 # ! PROJECT MODULES !
-from lib._Store import N1,N2
-from lib._Store import get_nodes
+import lib._Store as _store
 import lib._Plot as _plot
 
 # * VARIABLES *
@@ -37,121 +36,205 @@ DELTA_Z = 0.01      # m
 
 def build_dual_mesh_matrix(x_coordinate : np.ndarray, y_coordinate : np.ndarray) -> np.ndarray:
     """
-    Summary of what the function does
+    Builds the dual mesh matrix from the given x and y coordinates.
     
     Args:
-    
+        x_coordinate (np.ndarray): An array containing the x-coordinates of the nodes.
+        y_coordinate (np.ndarray): An array containing the y-coordinates of the nodes.
     
     Returns:
-    
-    
-    Raises:
+        dual_mesh_matrix (np.ndarray): A matrix containing the dual mesh coordinates.
     """
+    dual_mesh_matrix = np.array([x_coordinate,y_coordinate]).T
     
     
-    
-    pass
+    return dual_mesh_matrix
+
 
 def build_shape_matrix(x_coordinate : np.ndarray, y_coordinate : np.ndarray) -> np.ndarray:
     """
-    Summary of what the function does
+    Build the shape matrix from the given x and y coordinates.
     
     Args:
-    
+        x_coordinate (np.ndarray): An array containing the x-coordinates of the nodes.
+        y_coordinate (np.ndarray): An array containing the y-coordinates of the nodes.
     
     Returns:
-    
-    
-    Raises:
+        shape_matrix (np.ndarray): A matrix containing the shape function values.
     """
+    shape_matrix = np.array([[1,1,1], x_coordinate-x_coordinate.mean(), y_coordinate-y_coordinate.mean()]).T
     
     
-    
-    pass
+    return shape_matrix
+
 
 def build_capacity_matrix(mesh : dict) -> sp.dok_array:
     """
-    Summary of what the function does
-    
+    Builds the capacity matrix for the given mesh.
+
     Args:
-    
+        mesh (dict): A dictionary containing the mesh information.
     
     Returns:
-    
-    
-    Raises:
+        capacity_matrix (sp.dok_array): A sparse matrix representing the capacity coefficients.
     """
+    # Extract the number of nodes and elements from the mesh dictionary
+    mesh_nodes = mesh['XY'].shape[0]
+    mesh_elements = mesh['IE'].shape[0]
+    capacity_matrix = sp.dok_array((mesh_nodes, mesh_nodes))
     
+    # Retrieve x and y coordinates for the nodes and the element from mesh dictionary
+    x_nodes, y_nodes = _store.get_nodes(mesh)
+    element_nodes = mesh['IE'][_store.N2].values
     
+    # Loop through each element in the mesh and compute the capacity coefficients
+    for element_index in range(mesh_elements):
+        node_indices = element_nodes[element_index]
+        x_element = x_nodes[node_indices]
+        y_element = y_nodes[node_indices]
+        
     
-    pass
+    return capacity_matrix
+
 
 def build_conduction_matrix(mesh : dict) -> sp.dok_array:
     """
-    Summary of what the function does
-    
+    Builds the conduction matrix for the given mesh.
+
     Args:
-    
+        mesh (dict): A dictionary containing the mesh information.
     
     Returns:
-    
-    
-    Raises:
+        conduction_matrix (sp.dok_array): A sparse matrix representing the conduction coefficients.
     """
+    # Extract the number of nodes and elements from the mesh dictionary
+    mesh_nodes = mesh['XY'].shape[0]
+    mesh_elements = mesh['IE'].shape[0]
+    conduction_matrix = sp.dok_array((mesh_nodes, mesh_nodes))
     
+     # Retrieve x and y coordinates for the nodes and the element from mesh dictionary
+    x_nodes, y_nodes = _store.get_nodes(mesh)
+    element_nodes = mesh['IE'][_store.N2].values
     
+    # Loop through each element in the mesh and compute the conduction coefficients
+    for element_index in range(mesh_elements):
+        node_indices = element_nodes[element_index]
+        x_element = x_nodes[node_indices]
+        y_element = y_nodes[node_indices]
+        
     
-    pass
+    return conduction_matrix
+
 
 def build_generation_vector(mesh : dict) -> np.ndarray:
     """
-    Summary of what the function does
-    
+    Builds the generation vector for the given mesh.
+
     Args:
-    
+        mesh (dict): A dictionary containing the mesh information.
     
     Returns:
-    
-    
-    Raises:
+        generation_vector (np.ndarray): An array representing the generation values at each node.
     """
+    # Extract the number of nodes and elements from the mesh dictionary
+    mesh_nodes = mesh['XY'].shape[0]
+    mesh_elements = mesh['IE'].shape[0]
+    generation_vector = np.zeros(mesh_nodes)
+    
+    # Retrieve x and y coordinates for the nodes and the element from mesh dictionary
+    x_nodes, y_nodes = _store.get_nodes(mesh)
+    element_nodes = mesh['IE'][_store.N2].values
+    
+    # Loop through each element in the mesh and compute the generation values
+    for element_index in range(mesh_elements):
+        node_indices = element_nodes[element_index]
+        x_element = x_nodes[node_indices]
+        y_element = y_nodes[node_indices]
+        
+    
+    return generation_vector
     
     
-    
-    pass
 
 def steady_BCs(mesh : dict, conduction_matrix : sp.dok_array, generation_matrix : np.ndarray) -> None:
     """
-    Summary of what the function does
+    Applies the steady-state boundary conditions to the conduction matrix and generation vector.
+    The boundary conditions are fixed temperature and fixed heat flux.
     
     Args:
-    
+        mesh (dict): A dictionary containing the mesh information.
+        conduction_matrix (sp.dok_array): A sparse matrix representing the conduction coefficients.
+        generation_matrix (np.ndarray): An array representing the generation values at each node.
     
     Returns:
-    
-    
-    Raises:
+        None
     """
+    # Extract the boundary element from the mesh dictionary
+    mesh_elements = mesh['BE'].shape[0]
     
+    # Retrieve x and y coordinates for the nodes and the boundary element from mesh dictionary
+    x_nodes, y_nodes = _store.get_nodes(mesh)
+    element_nodes = mesh['BE'][_store.N1].values
     
+    # Loop through each element in the mesh and compute the generation values
+    for element_index in range(mesh_elements):
+        node_indices = element_nodes[element_index]
+        boundary_index = mesh['BE']['cid'][element_index]
+        boundary_heat_flux = mesh['BC']['q'][boundary_index]
     
-    pass
+        if np.isfinite(boundary_heat_flux):
+
+            pass
+        
+    # Loop through each element in the mesh and compute the generation values
+    for element_index in range(mesh_elements):
+        node_indices = element_nodes[element_index]
+        boundary_index = mesh['BE']['cid'][element_index]
+        boundary_temperature = mesh['BC']['T'][boundary_index]
+    
+        if np.isfinite(boundary_temperature):
+
+            pass
+        
+    
 
 def transient_BCs(mesh : dict, capacity_matrix : sp.dok_array, conduction_matrix : sp.dok_array, 
                   generation_vector : np.ndarray, temperature_vector : np.ndarray) -> None:
     """
-    Summary of what the function does
+    Applies the transient boundary conditions to the capacity matrix, conduction matrix, generation vector, and temperature vector.
+    The boundary conditions are fixed temperature and fixed heat flux.
     
     Args:
-    
+        mesh (dict): A dictionary containing the mesh information.
+        capacity_matrix (sp.dok_array): A sparse matrix representing the capacity coefficients.
+        conduction_matrix (sp.dok_array): A sparse matrix representing the conduction coefficients.
+        generation_vector (np.ndarray): An array representing the generation values at each node.
+        temperature_vector (np.ndarray): An array representing the temperature values at each node.
     
     Returns:
-    
-    
-    Raises:
+        None
     """
+    # Extract the boundary element from the mesh dictionary
+    mesh_elements = mesh['BE'].shape[0]
+    
+    # Retrieve x and y coordinates for the nodes and the boundary element from mesh dictionary
+    x_nodes, y_nodes = _store.get_nodes(mesh)
+    element_nodes = mesh['BE'][_store.N1].values
+    
+    # Loop through each element in the mesh and compute the generation values
+    for element_index in range(mesh_elements):
+        node_indices = element_nodes[element_index]
+        boundary_index = mesh['BE']['cid'][element_index]
+        boundary_heat_flux = mesh['BC']['q'][boundary_index]
+        boundary_temperature = mesh['BC']['T'][boundary_index]
+        
+        if np.isfinite(boundary_heat_flux):
+
+            pass
+        
+        if np.isfinite(boundary_temperature):
+            
+            pass
     
     
-    
-    pass
 
