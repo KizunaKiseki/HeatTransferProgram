@@ -186,7 +186,7 @@ def draw_field(axes : pl.axes, mesh: dict, x_coordinate : np.ndarray,
         x_coordinate (np.ndarray): An array containing the x-coordinates of the nodes.
         y_coordinate (np.ndarray): An array containing the y-coordinates of the nodes.
         field (np.ndarray): An array containing the field values at each node.
-        name (str): The name of the field to be displayed in the colorbar.
+        name (str): The name of the field to be displayed in the color bar.
     
     Returns:
         None
@@ -289,7 +289,7 @@ def plot_sparse_figure(sparse_matrix : sp.spmatrix, label : str = 'Coefficient M
     
     Args:
         sparse_matrix (sp.spmatrix): A sparse matrix representing the conduction coefficients.
-        label (str): The label for the colorbar. Defaults to 'Coefficient Magnitude, $A_{ij} [-]$'.
+        label (str): The label for the color bar. Defaults to 'Coefficient Magnitude, $A_{ij} [-]$'.
         partition (list[int]): A list of integers indicating the partitioning of the matrix for visualization. Defaults to None.
     
     Returns:
@@ -333,7 +333,7 @@ def plot_sparse_figure(sparse_matrix : sp.spmatrix, label : str = 'Coefficient M
     sparse_axes.set_xlim(column_indices.min() - 0.5, column_indices.max() + 0.5)
     sparse_axes.set_ylim(row_indices.min() - 0.5, row_indices.max() + 0.5)
     
-    # Create a colorbar for the scatter plot
+    # Create a color bar for the scatter plot
     sparse_figure = sparse_axes.get_figure()
     sparse_figure.colorbar(scatter, ax=sparse_axes, label=label)
     
