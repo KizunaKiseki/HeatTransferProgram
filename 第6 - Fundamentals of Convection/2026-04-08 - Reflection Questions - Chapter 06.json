@@ -1,0 +1,14 @@
+{
+	"The velocity and thermal boundary layers develop simultaneously but at different rates. How does the \"thickness\" of one layer relative to the other (Prandtl Number) dictate the design limits of a high-performance cooling system? ": [
+		"In HVAC air has a Prandtl Number of about 0.7 which indicates that the velocity and thermal boundary layers are similar in thickness. In order to increase heat transfer the cooling system must add fans, ducts, and diffusers to distribute the air better rather then using fluid properties. In HVAC design diffusers are added to help create turbulence and increase convection heat transfer through mixing. HVAC uses mixing to help remove the effects of velocity and thermal boundary layers."
+	],
+	"Laminar flow is predictable, but turbulent flow transfers heat more effectively. Where do you see an opportunity to \"intentionally\" trigger turbulence to solve a cooling bottleneck in a compact device? ": [
+		"An opportunity to intentionally trigger turbulence is with heat exchangers and ceiling/wall diffusers. By adding fins to heat exchangers or adding diffusers to ducts the flow can transition to turbulent which increases mixing and reduces thermal resistance. Diffusers create turbulent air flow that helps improve heat exchange from the room air to the supply air. However, by adding diffusers it will increase energy consumption."
+	],
+	"We used analogies (like the Chilton-Colburn analogy) to find heat transfer from friction. Why is the ability to predict one unknown from a known \"shortcut\" a strategic advantage in a fast-paced R&D environment? ": [
+		"Using analogies to find heat transfer from friction is useful in R&D environment because it allows engineers to not have to solve complex equations. By using known shortcuts it can reduce the time spent on analysis, allowing for more design iterations. In HVAC using anaolgies is similar to tools like Trace3D where known relationships and data is used to predict and estimate airflows and thermal loads without using governing equations. This allows engineers to move faster when designing HVAC system since they do not have to use complex equations to get what they want."
+	],
+	"If your model assumes laminar flow but the real-world application experiences vibrations that trigger turbulence, what is the calculated risk to the product\u2019s lifespan? ": [
+		"If a model is assumed to be laminar flow but experiences vibrations that trigger turbulence it can causes stress estimates to be incorrect. For example, Japan experiences multiple earthquakes a year which creates vibrations which can lead to turbulent flow. Overtime, these unexpected loads can cause fatigue and reduce the system's lifespan. In earthquake regions engineers must account for these vibrations so that the system is reliabile and durable."
+	]
+}

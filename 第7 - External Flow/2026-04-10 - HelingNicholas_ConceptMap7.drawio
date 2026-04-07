@@ -1,0 +1,43 @@
+<mxfile host="65bd71144e">
+    <diagram id="-tr_cBtVkGxHzf1XM_fQ" name="Chapter 7">
+        <mxGraphModel dx="612" dy="1019" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1400" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="staggered" style="whiteSpace=wrap;rounded=0;fillColor=#8fbbd9;dashed=0;inherit=default;" vertex="1" parent="1">
+                    <mxGeometry x="170" y="40" width="120" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="in-line" style="whiteSpace=wrap;rounded=0;fillColor=#ffbf86;dashed=0;inherit=default;" vertex="1" parent="1">
+                    <mxGeometry x="170" y="140" width="120" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="average" style="whiteSpace=wrap;rounded=0;fillColor=#95cf95;dashed=0;inherit=default;" vertex="1" parent="1">
+                    <mxGeometry x="170" y="240" width="120" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="heat" style="whiteSpace=wrap;rounded=0;fillColor=#ea9393;dashed=0;inherit=default;shape=hexagon;perimeter=hexagonPerimeter2;fixedSize=1;" vertex="1" parent="1">
+                    <mxGeometry x="320" y="40" width="120" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="pressure" style="whiteSpace=wrap;rounded=0;fillColor=#c9b3de;dashed=0;inherit=default;shape=hexagon;perimeter=hexagonPerimeter2;fixedSize=1;" vertex="1" parent="1">
+                    <mxGeometry x="320" y="140" width="120" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="transfer" style="whiteSpace=wrap;rounded=0;fillColor=#c5aaa5;dashed=0;inherit=default;shape=hexagon;perimeter=hexagonPerimeter2;fixedSize=1;" vertex="1" parent="1">
+                    <mxGeometry x="320" y="240" width="120" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="coefficient" style="whiteSpace=wrap;rounded=0;fillColor=#f1bbe0;dashed=0;inherit=default;shape=hexagon;perimeter=hexagonPerimeter2;fixedSize=1;" vertex="1" parent="1">
+                    <mxGeometry x="320" y="340" width="120" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="tube" style="whiteSpace=wrap;rounded=0;fillColor=#bfbfbf;dashed=0;inherit=default;shape=hexagon;perimeter=hexagonPerimeter2;fixedSize=1;" vertex="1" parent="1">
+                    <mxGeometry x="320" y="440" width="120" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="bank" style="whiteSpace=wrap;rounded=0;fillColor=#ddde90;dashed=0;inherit=default;shape=hexagon;perimeter=hexagonPerimeter2;fixedSize=1;" vertex="1" parent="1">
+                    <mxGeometry x="320" y="540" width="120" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="drop" style="whiteSpace=wrap;rounded=0;fillColor=#8bdee7;dashed=0;inherit=default;shape=hexagon;perimeter=hexagonPerimeter2;fixedSize=1;" vertex="1" parent="1">
+                    <mxGeometry x="320" y="640" width="120" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="flow" style="whiteSpace=wrap;rounded=0;fillColor=#8fbbd9;dashed=0;inherit=default;shape=hexagon;perimeter=hexagonPerimeter2;fixedSize=1;" vertex="1" parent="1">
+                    <mxGeometry x="320" y="740" width="120" height="80" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
