@@ -31,9 +31,6 @@ import matplotlib.path as path
 import lib._Store as _store
 import lib._Solve as _solve
 
-# * VARIABLES *
-# ? ================================================================ ?
-
 
 # * FUNCTION *
 # ? ================================================================ ?
