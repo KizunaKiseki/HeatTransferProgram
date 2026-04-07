@@ -28,8 +28,7 @@ import matplotlib.patches as patches
 import matplotlib.path as path
 
 # ! PROJECT MODULES !
-from lib._Store import N1, N2
-from lib._Store import get_nodes
+import lib._Store as _store
 
 # * VARIABLES *
 # ? ================================================================ ?
@@ -45,6 +44,8 @@ def plot_evolution(solution_array : list[np.ndarray], method_types : list[str], 
         ➀ Explicit
         ➁ Implicit 
         ➂ Semi-Implicit
+    
+    ! Figure 7
     
     Args:
         solution_array (list[np.ndarray]): A list of solution arrays. 
@@ -73,39 +74,63 @@ def plot_evolution(solution_array : list[np.ndarray], method_types : list[str], 
     return plot_evolution_figure
 
 
-def draw_problem(mesh: dict) -> pl.figure:
+def draw_mesh_figure(mesh: dict) -> pl.figure:
     """
-    Summary of what the function does
+    Graphical depiction of the mesh used to approximate the solution to the problem.
+    Triangular elements were used to fill the two-dimensional space of the domain.
+    
+    ! Figure 4
     
     Args:
-    
+        mesh (dict): A dictionary containing the mesh information.
     
     Returns:
-    
-    
-    Raises:
+        mesh_figure (pl.figure): A Matplotlib figure object containing the plot of the mesh.
     """
+    # Retrieve x & y coordinates from mesh
+    x_coordinates, y_coordinates = _store.get_nodes(mesh)
+    
+    # Setup Figure & Axes
+    mesh_figure, mesh_axes = setup_figure()
+    
+    # Draw Interior, Exterior, and Nodes
+    draw_interior(mesh_axes, mesh, x_coordinates, y_coordinates)
+    draw_exterior(mesh_axes, mesh, x_coordinates, y_coordinates)
+    draw_nodes(mesh_axes, mesh, x_coordinates, y_coordinates)
     
     
+    return mesh_figure
     
-    pass
 
-def draw_solution(mesh: dict, temperature_vector : np.ndarray) -> pl.figure:
+def draw_temperature_field(mesh: dict, temperature_vector : np.ndarray) -> pl.figure:
     """
-    Summary of what the function does
+    Graphical depiction of the steady-state temperature field.
+    Polyhedral cells were used to assert conservation of energy using the finite volume method.
+    
+    ! Figure 6
     
     Args:
-    
+        mesh (dict): A dictionary containing the mesh information.
+        temperature_vector (np.ndarray): A vector containing the temperature values at each node.
     
     Returns:
-    
-    
-    Raises:
+        temperature_field_figure (pl.figure): A Matplotlib figure object containing the plot of the temperature field.
     """
+    # Retrieve x & y coordinates from mesh
+    x_coordinates, y_coordinates = _store.get_nodes(mesh)
+    
+    # Setup Figure & Axes
+    temperature_field_figure, temperature_field_axes = setup_figure()
+    
+    # Draw Field, Cells, Exterior, and Nodes
+    draw_field(temperature_field_axes, mesh, x_coordinates, y_coordinates, temperature_vector, 'Temperature, $T$ [K]')
+    draw_cells(temperature_field_axes, mesh, x_coordinates, y_coordinates)
+    draw_exterior(temperature_field_axes, mesh, x_coordinates, y_coordinates)
+    draw_nodes(temperature_field_axes, mesh, x_coordinates, y_coordinates)
     
     
-    
-    pass
+    return temperature_field_figure
+
 
 def setup_figure() -> tuple[pl.figure, pl.axes]:
     """
@@ -214,6 +239,7 @@ def plot_sparse():
     """
     Summary of what the function does
     
+    ! Figure 5
     Args:
     
     
