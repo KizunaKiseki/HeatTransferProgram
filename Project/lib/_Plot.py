@@ -38,7 +38,7 @@ import lib._Solve as _solve
 # * FUNCTION *
 # ? ================================================================ ?
 
-def plot_evolution(solution_array : list[np.ndarray], method_types : list[str], time_steps : list[float]) -> pl.figure:
+def plot_evolution_figure(solution_array : list[np.ndarray], method_types : list[str], time_steps : list[float]) -> pl.figure:
     """
     Plots the evolution of temperature over time for different methods and time steps.
     The different methods are:
@@ -103,7 +103,7 @@ def draw_mesh_figure(mesh: dict) -> pl.figure:
     return mesh_figure
     
 
-def draw_temperature_field(mesh: dict, temperature_vector : np.ndarray) -> pl.figure:
+def draw_temperature_field_figure(mesh: dict, temperature_vector : np.ndarray) -> pl.figure:
     """
     Graphical depiction of the steady-state temperature field.
     Polyhedral cells were used to assert conservation of energy using the finite volume method.
@@ -279,6 +279,7 @@ def draw_exterior(axes : pl.axes, mesh: dict, x_coordinate : np.ndarray, y_coord
     colors = [matplotlib.colors.to_rgba(color) for color in mesh['EC']['color'].values]
     for e, c in zip(edge, colors):
         axes.plot(x_coordinate[e], y_coordinate[e], color=c, lw=4, zorder=6)
+
 
 def plot_sparse_figure(sparse_matrix : sp.spmatrix, label : str = 'Coefficient Magnitude, $A_{ij} [-]$', partition : list[int] = None) -> pl.figure:
     """
