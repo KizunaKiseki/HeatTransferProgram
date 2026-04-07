@@ -43,7 +43,7 @@ def plot_evolution_figure(solution_array : list[np.ndarray], method_types : list
         ➁ Implicit 
         ➂ Semi-Implicit
     
-    ! Figure 7
+    ! Figure 7 !
     
     Args:
         solution_array (list[np.ndarray]): A list of solution arrays. 
@@ -77,7 +77,7 @@ def draw_mesh_figure(mesh: dict) -> pl.figure:
     Graphical depiction of the mesh used to approximate the solution to the problem.
     Triangular elements were used to fill the two-dimensional space of the domain.
     
-    ! Figure 4
+    ! Figure 4 !
     
     Args:
         mesh (dict): A dictionary containing the mesh information.
@@ -105,7 +105,7 @@ def draw_temperature_field_figure(mesh: dict, temperature_vector : np.ndarray) -
     Graphical depiction of the steady-state temperature field.
     Polyhedral cells were used to assert conservation of energy using the finite volume method.
     
-    ! Figure 6
+    ! Figure 6 !
     
     Args:
         mesh (dict): A dictionary containing the mesh information.
@@ -282,7 +282,7 @@ def plot_sparse_figure(sparse_matrix : sp.spmatrix, label : str = 'Coefficient M
     """
     Graphical depiction of the sparsity pattern for the conduction matrix.
     
-    ! Figure 5
+    ! Figure 5 !
     
     Args:
         sparse_matrix (sp.spmatrix): A sparse matrix representing the conduction coefficients.
@@ -344,7 +344,9 @@ def plot_sparse_figure(sparse_matrix : sp.spmatrix, label : str = 'Coefficient M
 
 def plot_element_figure(mesh: dict, element_conduction : sp.dok_array) -> pl.figure:
     """
-        Summary of what the function does
+    Graphical depiction of the element conduction matrix for a specific element in the mesh.
+    
+    ! Figure 2 !
         
     Args:
         mesh (dict): A dictionary containing the mesh information.
