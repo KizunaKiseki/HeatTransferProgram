@@ -421,3 +421,4 @@ def plot_element_figure(mesh: dict, element_conduction : sp.dok_array) -> pl.fig
     
     
     return element_figure
+
