@@ -59,7 +59,7 @@ def plot_evolution(solution_array : list[np.ndarray], method_types : list[str], 
     plot_evolution_figure = pl.figure()
     
     # Axes & Line Styles
-    plot_evolution_axes = figure.add_subplot(1,1,1)
+    plot_evolution_axes = plot_evolution_figure.add_subplot(1,1,1)
     plot_evolution_axes.set_xlabel('Time, $t$ [hr]')
     plot_evolution_axes.set_ylabel('Temperature, $T$ [K]')
     line_styles = ['-','--',':']
