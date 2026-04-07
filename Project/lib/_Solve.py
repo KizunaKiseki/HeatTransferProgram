@@ -89,7 +89,10 @@ def build_capacity_matrix(mesh : dict) -> sp.dok_array:
     
     # Loop through each element in the mesh and compute the capacity coefficients
     for element_index in range(mesh_elements):
+        # Get the node indices for the current element
         node_indices = element_nodes[element_index]
+        
+        # Get the x and y coordinates for the current element
         x_element = x_nodes[node_indices]
         y_element = y_nodes[node_indices]
         
@@ -118,7 +121,10 @@ def build_conduction_matrix(mesh : dict) -> sp.dok_array:
     
     # Loop through each element in the mesh and compute the conduction coefficients
     for element_index in range(mesh_elements):
+        # Get the node indices for the current element
         node_indices = element_nodes[element_index]
+        
+        # Get the x and y coordinates for the current element
         x_element = x_nodes[node_indices]
         y_element = y_nodes[node_indices]
         
@@ -147,7 +153,10 @@ def build_generation_vector(mesh : dict) -> np.ndarray:
     
     # Loop through each element in the mesh and compute the generation values
     for element_index in range(mesh_elements):
+        # Get the node indices for the current element
         node_indices = element_nodes[element_index]
+        
+        # Get x and y coordinates for the current element
         x_element = x_nodes[node_indices]
         y_element = y_nodes[node_indices]
         
@@ -178,7 +187,10 @@ def steady_BCs(mesh : dict, conduction_matrix : sp.dok_array, generation_matrix 
     
     # Loop through each element in the mesh and compute the generation values
     for element_index in range(mesh_elements):
+        # Get the node indices for the current boundary element
         node_indices = element_nodes[element_index]
+        
+        # Get the boundary condition index for the current boundary element
         boundary_index = mesh['BE']['cid'][element_index]
         boundary_heat_flux = mesh['BC']['q'][boundary_index]
     
@@ -188,7 +200,10 @@ def steady_BCs(mesh : dict, conduction_matrix : sp.dok_array, generation_matrix 
         
     # Loop through each element in the mesh and compute the generation values
     for element_index in range(mesh_elements):
+        # Get the node indices for the current boundary element
         node_indices = element_nodes[element_index]
+        
+        # Get the boundary condition index for the current boundary element
         boundary_index = mesh['BE']['cid'][element_index]
         boundary_temperature = mesh['BC']['T'][boundary_index]
     
@@ -223,7 +238,10 @@ def transient_BCs(mesh : dict, capacity_matrix : sp.dok_array, conduction_matrix
     
     # Loop through each element in the mesh and compute the generation values
     for element_index in range(mesh_elements):
+        # Get the node indices for the current boundary element
         node_indices = element_nodes[element_index]
+        
+        # Get the boundary condition index for the current boundary element
         boundary_index = mesh['BE']['cid'][element_index]
         boundary_heat_flux = mesh['BC']['q'][boundary_index]
         boundary_temperature = mesh['BC']['T'][boundary_index]
