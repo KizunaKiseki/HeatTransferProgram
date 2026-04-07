@@ -82,7 +82,6 @@ def write_mesh(mesh : dict, file_name : str) -> None:
         None
     """
     with pd.ExcelWriter(file_name) as excel:
-        
         for (sheet, data) in mesh.items():
             data.to_excel(excel, sheet_name=sheet, index=False)
 
