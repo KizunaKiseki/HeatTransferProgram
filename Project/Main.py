@@ -19,6 +19,7 @@ AUTHOR : Nicholas Heling
 
 # ! PYTHON TEMPLATES & LIBRARIES !
 import argparse as ap
+import os
 
 # ! PROJECT MODULES !
 import lib._Store as _store
@@ -65,6 +66,10 @@ def main():
     
     Raises:
     """
+    # Initialize Figure_Path & Figure_Names for saving figures
+    figure_path = []
+    figure_names = []
+    
     # Parse Commands
     parser = ap.ArgumentParser(description="Description of the program")
     parser.add_argument('mesh_xlsx', type = str, help='The name of the Excel file containing the mesh data.')
@@ -80,13 +85,29 @@ def main():
         print("✅ Mesh data successfully read from the file.")
         _store.print_mesh(mesh_data)
         
-  
+        # Create Figure 4 ⇒ Mesh Figure
+        mesh_figure = _plot.draw_mesh_figure(mesh_data)
+        figure_path.append(mesh_figure)
+        figure_names.append('mesh_figure')
+        
+        
+        
+ 
     except FileNotFoundError:
         print(f"❎ The file {args.mesh_xlsx} was not found.")
     except Exception as e:
         print(f"❎ An error occurred while reading the mesh: {e}")
-        
-        
+    
+    # Create Figures Dictionary to save figures
+    figures_dictionary = os.path.join(os.path.dirname(__file__), 'Figures')
+    os.makedirs(figures_dictionary, exist_ok=True)
+ 
+    for figure, name in zip(figure_path, figure_names):
+        figure_file_path = os.path.join(figures_dictionary, f'{name}.png')
+        figure.savefig(figure_file_path, dpi=300)
+        print(f"✅ {name} saved to {figure_file_path}")
+    
+   
 # * EXECUTE *
 # ? ================================================================ ?
 if __name__ == "__main__":

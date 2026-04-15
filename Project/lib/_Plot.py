@@ -269,11 +269,11 @@ def draw_exterior(axes : pl.axes, mesh: dict, x_coordinate : np.ndarray, y_coord
         None
     """
     # Triangulate the exterior using the connectivity information from the mesh
-    edge = mesh['IE'][_store.N1].values
-    connectivity = mesh['IE']['cid'].values
+    edge = mesh['BE'][_store.N1].values
+    connectivity = mesh['BE']['cid'].values
     
     # Create a color map based on the exterior cell types
-    colors = [matplotlib.colors.to_rgba(color) for color in mesh['EC']['color'].values]
+    colors = mesh['BC']['color'][connectivity]
     for e, c in zip(edge, colors):
         axes.plot(x_coordinate[e], y_coordinate[e], color=c, lw=4, zorder=6)
 
