@@ -83,6 +83,9 @@ def build_capacity_matrix(mesh : dict) -> sp.dok_array:
     mesh_elements = mesh['IE'].shape[0]
     capacity_matrix = sp.dok_array((mesh_nodes, mesh_nodes))
     
+    # Define the necessary matrices for the capacity coefficient calculation
+    
+    
     # Retrieve x and y coordinates for the nodes and the element from mesh dictionary
     x_nodes, y_nodes = _store.get_nodes(mesh)
     element_nodes = mesh['IE'][_store.N2].values
@@ -115,7 +118,14 @@ def build_conduction_matrix(mesh : dict) -> sp.dok_array:
     mesh_elements = mesh['IE'].shape[0]
     conduction_matrix = sp.dok_array((mesh_nodes, mesh_nodes))
     
-     # Retrieve x and y coordinates for the nodes and the element from mesh dictionary
+    # Define the necessary matrices for the conduction coefficient calculation
+    difference_matrix = np.array([[1,0,-1],[-1,1,0],[0,-1,1]])
+    edge_matrix = np.array([[1,1,0],[0,1,1],[1,0,1]])/2
+    midpoint_matrix = np.array([[1,1,1],[1,1,1],[1,1,1]])/3
+    rotation_matrix = np.array([[0,1],[-1,0]])
+    span_matrix = np.array([[0,1,0],[0,0,1]])
+    
+    # Retrieve x and y coordinates for the nodes and the element from mesh dictionary
     x_nodes, y_nodes = _store.get_nodes(mesh)
     element_nodes = mesh['IE'][_store.N2].values
     
@@ -127,6 +137,13 @@ def build_conduction_matrix(mesh : dict) -> sp.dok_array:
         # Get the x and y coordinates for the current element
         x_element = x_nodes[node_indices]
         y_element = y_nodes[node_indices]
+        
+        # ! Equation 18 from Project Handout !
+        conduction_element = mesh['IE']['k'] * DELTA_Z * difference_matrix @ (edge_matrix - midpoint_matrix) @ build_dual_mesh_matrix(x_element, y_element) @ rotation_matrix @ span_matrix @ build_shape_matrix(x_element, y_element).T  
+        
+        I = node_indices.reshape(3,1)
+        J = node_indices.reshape(1,3)
+        conduction_matrix[I, J] += conduction_element
         
     
     return conduction_matrix
