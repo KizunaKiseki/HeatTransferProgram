@@ -18,8 +18,8 @@ AUTHOR : Nicholas Heling
 # ? ================================================================ ?
 
 # ! PYTHON TEMPLATES & LIBRARIES !
-import argparse as ap
 import os
+import argparse as ap
 
 # ! PROJECT MODULES !
 import lib._Store as _store
