@@ -90,8 +90,6 @@ def main():
         figure_path.append(mesh_figure)
         figure_names.append('mesh_figure')
         
-        
-        
  
     except FileNotFoundError:
         print(f"❎ The file {args.mesh_xlsx} was not found.")
