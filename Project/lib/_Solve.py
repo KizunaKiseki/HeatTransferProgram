@@ -83,8 +83,6 @@ def build_capacity_matrix(mesh : dict) -> sp.dok_array:
     mesh_elements = mesh['IE'].shape[0]
     capacity_matrix = sp.dok_array((mesh_nodes, mesh_nodes))
     
-    # Define the necessary matrices for the capacity coefficient calculation
-    
     
     # Retrieve x and y coordinates for the nodes and the element from mesh dictionary
     x_nodes, y_nodes = _store.get_nodes(mesh)
@@ -98,6 +96,8 @@ def build_capacity_matrix(mesh : dict) -> sp.dok_array:
         # Get the x and y coordinates for the current element
         x_element = x_nodes[node_indices]
         y_element = y_nodes[node_indices]
+        
+        capacity_matrix = mesh['IC']['C'] * mesh['IC']['rho'] * DELTA_Z * 
         
     
     return capacity_matrix
