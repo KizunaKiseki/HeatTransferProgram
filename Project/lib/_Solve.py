@@ -18,6 +18,8 @@ AUTHOR : Nicholas Heling
 # ? ================================================================ ?
 
 # ! PYTHON TEMPLATES & LIBRARIES !
+from threading import local
+
 import numpy as np
 import scipy.sparse as sp
 
@@ -100,9 +102,13 @@ def build_capacity_matrix(mesh : dict) -> sp.dok_array:
         y_element = y_nodes[node_indices]
         
         # ! Equation 22 from Project Handout !
-        capacity_matrix = mesh['IC']['C'] * mesh['IC']['rho'] * DELTA_Z * linalg.det(build_shape_matrix(x_element, y_element)) @ identity_matrix * (1/2)
+        capacity_element = (mesh['IC']['C'] * mesh['IC']['rho'] * DELTA_Z * 0.5 * 
+                          np.abs(np.linalg.det(build_shape_matrix(x_element, y_element))) * identity_matrix)
         
-    
+        for local_index, global_index in enumerate(node_indices):
+            capacity_matrix[global_index, global_index] += capacity_element[local_index, local_index]
+  
+            
     return capacity_matrix
 
 
@@ -142,10 +148,13 @@ def build_conduction_matrix(mesh : dict) -> sp.dok_array:
         y_element = y_nodes[node_indices]
         
         # ! Equation 18 from Project Handout !
-        conduction_element = mesh['IE']['k'] * DELTA_Z * difference_matrix @ (edge_matrix - midpoint_matrix) @ build_dual_mesh_matrix(x_element, y_element) @ rotation_matrix @ span_matrix @ build_shape_matrix(x_element, y_element).T  
+        conduction_element = (mesh['IE']['k'] * DELTA_Z * difference_matrix @ (edge_matrix - midpoint_matrix) 
+                              @ build_dual_mesh_matrix(x_element, y_element) @ rotation_matrix @ span_matrix 
+                              @ np.linalg.inv(build_shape_matrix(x_element, y_element)))
         
         I = node_indices.reshape(3,1)
         J = node_indices.reshape(1,3)
+        
         conduction_matrix[I, J] += conduction_element
         
     
