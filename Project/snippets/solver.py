@@ -76,7 +76,7 @@ def build_generation(mesh):
 		yₜ = yₙ[n]
 		
 		# TODO: Equation 26 ??? 
-		# TODO: Implement one for steady and transient (if statements)
+		
   
 		pass
 		

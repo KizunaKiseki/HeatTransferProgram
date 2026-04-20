@@ -85,10 +85,18 @@ def main():
         print("✅ Mesh data successfully read from the file.")
         _store.print_mesh(mesh_data)
         
-        # Create Figure 4 ⇒ Mesh Figure
+        # Create Figure 4 ⇒ Graphical Depiction of the Mesh
         mesh_figure = _plot.draw_mesh_figure(mesh_data)
         figure_path.append(mesh_figure)
         figure_names.append('mesh_figure')
+        
+        # Build Sparse Matrix
+        sparse_matrix = _solve.build_conduction_matrix(mesh_data)
+        
+        # Create Figure 5 ⇒ Sparsity Pattern of Conduction Matrix
+        sparsity_figure = _plot.plot_sparsity_pattern(sparse_matrix)
+        figure_path.append(sparsity_figure)
+        figure_names.append('sparsity_figure')
         
  
     except FileNotFoundError:
