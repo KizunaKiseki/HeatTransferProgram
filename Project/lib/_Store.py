@@ -42,32 +42,25 @@ def read_mesh(file_name : str) -> dict:
         FileNotFoundError: If the specified file does not exist.
         Exception: For any I/O errors or issues while reading the file.
     """
-    try:
-        # Types for all columns in short form
-        types = {
-            str: 'name color',
-            int: 'id material n0 n1 n2',
-            float: 'x y T q rho k C',
-        }
-        
-        # Invert types dictionary for pandas format
-        conv = {
-            column: dtype
-            for dtype, columns in types.items()
-            for column in columns.split()
-        }
-
-        # Read all sheets in file as dataframes
-        mesh = pd.read_excel(file_name, None, converters=conv)
-        
-        
-        return mesh
+    # Types for all columns in short form
+    types = {
+        str: 'name color',
+        int: 'id material n0 n1 n2',
+        float: 'x y T q rho k C',
+    }
     
-    # Handle file not found and other exceptions
-    except FileNotFoundError:
-        raise
-    except Exception as e:
-        raise e
+    # Invert types dictionary for pandas format
+    conv = {
+        column: dtype
+        for dtype, columns in types.items()
+        for column in columns.split()
+    }
+
+    # Read all sheets in file as dataframes
+    mesh = pd.read_excel(file_name, None, converters=conv)
+    
+    
+    return mesh
 
 
 def write_mesh(mesh : dict, file_name : str) -> None:
