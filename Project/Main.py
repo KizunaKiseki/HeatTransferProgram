@@ -92,9 +92,9 @@ def main():
         
         # Build Sparse Matrix
         sparse_matrix = _solve.build_conduction_matrix(mesh_data)
-        
+
         # Create Figure 5 ⇒ Sparsity Pattern of Conduction Matrix
-        sparsity_figure = _plot.plot_sparsity_pattern(sparse_matrix)
+        sparsity_figure = _plot.plot_sparse_figure(sparse_matrix)
         figure_path.append(sparsity_figure)
         figure_names.append('sparsity_figure')
         

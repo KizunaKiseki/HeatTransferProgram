@@ -315,10 +315,10 @@ def plot_sparse_figure(sparse_matrix : sp.spmatrix, label : str = 'Coefficient M
     height = sparse_axes.get_window_extent().transformed(sparse_axes.get_figure().dpi_scale_trans.inverted()).height
     row_spacing = height / row_indices.size
     fudge_factor = 25
-    size = (fudge_factor * row_spacing)**2
+    size = (fudge_factor * row_spacing * 72)**2
     
     # Create a color map and scatter plot for the non-zero entries of the matrix
-    color_map = cm.get_cmap('viridis')
+    color_map = cm.get_cmap('viridis', 9)
     scatter = sparse_axes.scatter(column_indices, row_indices, marker='o', linewidths=0, s=size, c=values, vmin=-scale, vmax=scale, cmap=color_map)
     
     # Draw partition lines if specified
