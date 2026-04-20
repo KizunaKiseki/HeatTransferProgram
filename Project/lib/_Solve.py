@@ -103,7 +103,7 @@ def build_capacity_matrix(mesh : dict) -> sp.dok_array:
         
         # ! Equation 22 from Project Handout !
         capacity_element = (mesh['IC']['C'].iloc[0] * mesh['IC']['rho'].iloc[0] * DELTA_Z * 0.5 * 
-                          np.abs(np.linalg.det(build_shape_matrix(x_element, y_element))) * identity_matrix)
+                          np.abs(np.linalg.det(build_shape_matrix(x_element, y_element))) @ identity_matrix)
         
         for local_index, global_index in enumerate(node_indices):
             capacity_matrix[global_index, global_index] += capacity_element[local_index, local_index]

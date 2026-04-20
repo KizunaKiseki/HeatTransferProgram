@@ -33,7 +33,7 @@ import lib._Plot as _plot
 # * FUNCTION *
 # ? ================================================================ ?
 
-def function_name():
+def steady_state():
     """
     Summary of what the function does
     
@@ -49,6 +49,24 @@ def function_name():
     
     
     pass
+
+def transient_state():
+    """
+    Summary of what the function does
+    
+    Args:
+    
+    
+    Returns:
+    
+    
+    Raises:
+    """
+    
+    
+    
+    pass
+
 
 
 # * MAIN *
