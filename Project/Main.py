@@ -84,25 +84,27 @@ def main():
         # Output success message and prints the mesh data
         print("✅ Mesh data successfully read from the file.")
         _store.print_mesh(mesh_data)
-        
-        # Create Figure 4 ⇒ Graphical Depiction of the Mesh
-        mesh_figure = _plot.draw_mesh_figure(mesh_data)
-        figure_path.append(mesh_figure)
-        figure_names.append('mesh_figure')
-        
-        # Build Sparse Matrix
-        sparse_matrix = _solve.build_conduction_matrix(mesh_data)
-
-        # Create Figure 5 ⇒ Sparsity Pattern of Conduction Matrix
-        sparsity_figure = _plot.plot_sparse_figure(sparse_matrix)
-        figure_path.append(sparsity_figure)
-        figure_names.append('sparsity_figure')
-        
  
     except FileNotFoundError:
         print(f"❎ The file {args.mesh_xlsx} was not found.")
     except Exception as e:
         print(f"❎ An error occurred while reading the mesh: {e}")
+    
+    
+    # Create Figure 4 ⇒ Graphical Depiction of the Mesh
+    mesh_figure = _plot.draw_mesh_figure(mesh_data)
+    figure_path.append(mesh_figure)
+    figure_names.append('mesh_figure')
+    
+    # Build Sparse Matrix
+    sparse_matrix = _solve.build_conduction_matrix(mesh_data)
+
+    # Create Figure 5 ⇒ Sparsity Pattern of Conduction Matrix
+    sparsity_figure = _plot.plot_sparse_figure(sparse_matrix)
+    figure_path.append(sparsity_figure)
+    figure_names.append('sparsity_figure')
+    
+    
     
     # Create Figures Dictionary to save figures
     figures_dictionary = os.path.join(os.path.dirname(__file__), 'Figures')

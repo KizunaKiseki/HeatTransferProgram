@@ -102,7 +102,7 @@ def build_capacity_matrix(mesh : dict) -> sp.dok_array:
         y_element = y_nodes[node_indices]
         
         # ! Equation 22 from Project Handout !
-        capacity_element = (mesh['IC']['C'] * mesh['IC']['rho'] * DELTA_Z * 0.5 * 
+        capacity_element = (mesh['IC']['C'].iloc[0] * mesh['IC']['rho'].iloc[0] * DELTA_Z * 0.5 * 
                           np.abs(np.linalg.det(build_shape_matrix(x_element, y_element))) * identity_matrix)
         
         for local_index, global_index in enumerate(node_indices):
@@ -143,18 +143,15 @@ def build_conduction_matrix(mesh : dict) -> sp.dok_array:
         # Get the node indices for the current element
         node_indices = element_nodes[element_index]
         
-        print(node_indices)
         # Get the x and y coordinates for the current element
         x_element = x_nodes[node_indices]
         y_element = y_nodes[node_indices]
 
-        print(x_element, y_element)
         # ! Equation 18 from Project Handout !
-        conduction_element = (mesh['IC']['k'] * DELTA_Z * difference_matrix @ (edge_matrix - midpoint_matrix) 
+        conduction_element = (mesh['IC']['k'].iloc[0] * DELTA_Z * difference_matrix @ (edge_matrix - midpoint_matrix) 
                               @ build_dual_mesh_matrix(x_element, y_element) @ rotation_matrix @ span_matrix 
                               @ np.linalg.inv(build_shape_matrix(x_element, y_element)))
 
-        print(conduction_element)
         I = node_indices.reshape(3,1)
         J = node_indices.reshape(1,3)
         
