@@ -75,7 +75,7 @@ def build_generation(mesh):
 		xₜ = xₙ[n]
 		yₜ = yₙ[n]
 		
-		# TODO: Equation 26 ??? 
+		# TODO: Equation 39 ?
 		
   
 		pass

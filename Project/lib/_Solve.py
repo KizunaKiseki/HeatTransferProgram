@@ -102,7 +102,7 @@ def build_capacity_matrix(mesh : dict) -> sp.dok_array:
         y_element = y_nodes[node_indices]
         
         # ! Equation 22 from Project Handout !
-        capacity_element = (mesh['IC']['C'].iloc[0] * mesh['IC']['rho'].iloc[0] * DELTA_Z * 0.5 * 
+        capacity_element = (0.5 * DELTA_Z * mesh['IC']['C'].iloc[0] * mesh['IC']['rho'].iloc[0] *
                           np.abs(np.linalg.det(build_shape_matrix(x_element, y_element))) @ identity_matrix)
         
         for local_index, global_index in enumerate(node_indices):
@@ -146,9 +146,9 @@ def build_conduction_matrix(mesh : dict) -> sp.dok_array:
         # Get the x and y coordinates for the current element
         x_element = x_nodes[node_indices]
         y_element = y_nodes[node_indices]
-
+        
         # ! Equation 18 from Project Handout !
-        conduction_element = (mesh['IC']['k'].iloc[0] * DELTA_Z * difference_matrix @ (edge_matrix - midpoint_matrix) 
+        conduction_element = (DELTA_Z * mesh['IC']['k'].iloc[0] * difference_matrix @ (edge_matrix - midpoint_matrix) 
                               @ build_dual_mesh_matrix(x_element, y_element) @ rotation_matrix @ span_matrix 
                               @ np.linalg.inv(build_shape_matrix(x_element, y_element)))
 
@@ -176,6 +176,9 @@ def build_generation_vector(mesh : dict) -> np.ndarray:
     mesh_elements = mesh['IE'].shape[0]
     generation_vector = np.zeros(mesh_nodes)
     
+    # Define the necessary matrices for the generation calculation
+    
+    
     # Retrieve x and y coordinates for the nodes and the element from mesh dictionary
     x_nodes, y_nodes = _store.get_nodes(mesh)
     element_nodes = mesh['IE'][_store.N2].values
@@ -188,6 +191,9 @@ def build_generation_vector(mesh : dict) -> np.ndarray:
         # Get x and y coordinates for the current element
         x_element = x_nodes[node_indices]
         y_element = y_nodes[node_indices]
+        
+        # ! Equation 39 from Project Handout !
+        generation_element = (0.5 * DELTA_Z)
         
     
     return generation_vector
@@ -224,7 +230,7 @@ def steady_BCs(mesh : dict, conduction_matrix : sp.dok_array, generation_matrix 
         boundary_heat_flux = mesh['BC']['q'][boundary_index]
     
         if np.isfinite(boundary_heat_flux):
-
+            
             pass
         
     # Loop through each element in the mesh and compute the generation values
