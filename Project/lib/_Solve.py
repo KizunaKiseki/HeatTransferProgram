@@ -200,7 +200,7 @@ def build_generation_vector(mesh : dict) -> np.ndarray:
     
     
 
-def steady_BCs(mesh : dict, conduction_matrix : sp.dok_array, generation_matrix : np.ndarray) -> None:
+def steady_BCs(mesh : dict, conduction_matrix : sp.dok_array, generation_vector : np.ndarray) -> None:
     """
     Applies the steady-state boundary conditions to the conduction matrix and generation vector.
     The boundary conditions are fixed temperature and fixed heat flux.
@@ -208,7 +208,7 @@ def steady_BCs(mesh : dict, conduction_matrix : sp.dok_array, generation_matrix 
     Args:
         mesh (dict): A dictionary containing the mesh information.
         conduction_matrix (sp.dok_array): A sparse matrix representing the conduction coefficients.
-        generation_matrix (np.ndarray): An array representing the generation values at each node.
+        generation_vector (np.ndarray): An array representing the generation values at each node.
     
     Returns:
         None

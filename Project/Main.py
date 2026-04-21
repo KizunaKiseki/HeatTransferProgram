@@ -33,7 +33,7 @@ import lib._Plot as _plot
 # * FUNCTION *
 # ? ================================================================ ?
 
-def steady_state():
+def explicit_solver():
     """
     Summary of what the function does
     
@@ -50,7 +50,8 @@ def steady_state():
     
     pass
 
-def transient_state():
+
+def implicit_solver():
     """
     Summary of what the function does
     
@@ -67,6 +68,23 @@ def transient_state():
     
     pass
 
+
+def semi_implicit_solver():
+    """
+    Summary of what the function does
+    
+    Args:
+    
+    
+    Returns:
+    
+    
+    Raises:
+    """
+    
+    
+    
+    pass
 
 
 # * MAIN *
@@ -115,6 +133,8 @@ def main():
     
     # Build Sparse Matrix
     sparse_matrix = _solve.build_conduction_matrix(mesh_data)
+    
+    # TODO: Implement Steady-State Boundary Conditions on the Sparse Matrix
 
     # ! Create Figure 5 ⇒ Sparsity Pattern of Conduction Matrix !
     sparsity_figure = _plot.plot_sparse_figure(sparse_matrix)
@@ -123,9 +143,12 @@ def main():
     
     # Build Conduction Matrix & Generation Vector
     conduction_matrix = _solve.build_conduction_matrix(mesh_data)
+    
+    # TODO: Implement the generation vector in solver.py ⇒ build_generation_vector()
     generation_vector = _solve.build_generation_vector(mesh_data)
     
     # Apply Steady-State Boundary Conditions
+    # TODO: Implement the function to apply steady-state boundary conditions in solver.py ⇒ steady_BCs()
     _solve.steady_BCs(mesh_data, conduction_matrix, generation_vector)
     
     # Solve for Steady-State Temperature Distribution
@@ -135,8 +158,6 @@ def main():
     temperature_figure = _plot.draw_temperature_field_figure(mesh_data, temperature_distribution)
     figure_path.append(temperature_figure)
     figure_names.append('temperature_figure')
-    
-    
     
     
     # Create Figures Dictionary to save figures
