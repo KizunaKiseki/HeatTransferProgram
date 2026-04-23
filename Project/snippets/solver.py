@@ -106,7 +106,7 @@ def steady_BCs(mesh,K,E):
 		Tₑ = mesh['BC']['T'][cid]
 		if np.isfinite(Tₑ):
       
-			# TODO: Fixed Temperature???
+			# TODO: Fixed Temperature
 			pass
 
 
@@ -124,5 +124,5 @@ def transient_BCs(mesh,C,K,E,T):
 			# TODO: 
 			pass
 		if np.isfinite(qₑ):
-			# TODO: Implement Equation 39 and multiply it by delta t
+			# TODO:
 			pass

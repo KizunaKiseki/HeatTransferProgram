@@ -101,8 +101,11 @@ def build_capacity_matrix(mesh : dict) -> sp.dok_array:
         x_element = x_nodes[node_indices]
         y_element = y_nodes[node_indices]
         
+        # Get the Interior Index for the current element
+        interior_index = mesh['IE']['cid'][element_index]
+        
         # ! Equation 22 from Project Handout !
-        capacity_element = (0.5 * DELTA_Z * mesh['IC']['C'].iloc[0] * mesh['IC']['rho'].iloc[0] *
+        capacity_element = (0.5 * DELTA_Z * mesh['IC']['C'][interior_index] * mesh['IC']['rho'].iloc[0] *
                           np.abs(np.linalg.det(build_shape_matrix(x_element, y_element))) @ identity_matrix)
         
         for local_index, global_index in enumerate(node_indices):
@@ -147,8 +150,11 @@ def build_conduction_matrix(mesh : dict) -> sp.dok_array:
         x_element = x_nodes[node_indices]
         y_element = y_nodes[node_indices]
         
+        # Get the Interior Index for the current element
+        interior_index = mesh['IE']['cid'][element_index]
+        
         # ! Equation 18 from Project Handout !
-        conduction_element = (DELTA_Z * mesh['IC']['k'].iloc[0] * difference_matrix @ (edge_matrix - midpoint_matrix) 
+        conduction_element = (DELTA_Z * mesh['IC']['k'][interior_index] * difference_matrix @ (edge_matrix - midpoint_matrix) 
                               @ build_dual_mesh_matrix(x_element, y_element) @ rotation_matrix @ span_matrix 
                               @ np.linalg.inv(build_shape_matrix(x_element, y_element)))
 
@@ -177,7 +183,7 @@ def build_generation_vector(mesh : dict) -> np.ndarray:
     generation_vector = np.zeros(mesh_nodes)
     
     # Define the necessary matrices for the generation calculation
-    
+    identity_matrix = np.eye(3)
     
     # Retrieve x and y coordinates for the nodes and the element from mesh dictionary
     x_nodes, y_nodes = _store.get_nodes(mesh)
@@ -191,13 +197,20 @@ def build_generation_vector(mesh : dict) -> np.ndarray:
         # Get x and y coordinates for the current element
         x_element = x_nodes[node_indices]
         y_element = y_nodes[node_indices]
+
+        # Get the Interior Index for the current element
+        interior_index = mesh['IE']['cid'][element_index]
+
+        # ! Equation 26 from Project Handout !
+        generation_element = mesh['IC']['e'][interior_index]
         
-        # ! Equation 39 from Project Handout !
-        generation_element = (0.5 * DELTA_Z)
+        # ! Equation 22 from Project Handout !
+        volume_element = (DELTA_Z * np.abs(np.linalg.det(build_shape_matrix(x_element, y_element))) @ identity_matrix) / 6
         
+        generation_vector[node_indices] += generation_element * volume_element
+    
     
     return generation_vector
-    
     
 
 def steady_BCs(mesh : dict, conduction_matrix : sp.dok_array, generation_vector : np.ndarray) -> None:
@@ -225,7 +238,7 @@ def steady_BCs(mesh : dict, conduction_matrix : sp.dok_array, generation_vector 
         # Get the node indices for the current boundary element
         node_indices = element_nodes[element_index]
         
-        # Get the boundary condition index for the current boundary element
+        # Get the Boundary Index for the current boundary element
         boundary_index = mesh['BE']['cid'][element_index]
         boundary_heat_flux = mesh['BC']['q'][boundary_index]
     
@@ -238,7 +251,7 @@ def steady_BCs(mesh : dict, conduction_matrix : sp.dok_array, generation_vector 
         # Get the node indices for the current boundary element
         node_indices = element_nodes[element_index]
         
-        # Get the boundary condition index for the current boundary element
+        # Get the Boundary Index for the current boundary element
         boundary_index = mesh['BE']['cid'][element_index]
         boundary_temperature = mesh['BC']['T'][boundary_index]
     
