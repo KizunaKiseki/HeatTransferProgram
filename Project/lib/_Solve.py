@@ -243,9 +243,9 @@ def steady_BCs(mesh : dict, conduction_matrix : sp.dok_array, generation_vector 
         
         # Get the Boundary Index for the current boundary element
         boundary_index = mesh['BE']['cid'][element_index]
-        boundary_heat_flux = mesh['BC']['q'][boundary_index]
+        heat_flux_element = mesh['BC']['q'][boundary_index]
     
-        if np.isfinite(boundary_heat_flux):
+        if np.isfinite(heat_flux_element):
             
             # Get x and y coordinates for the current element
             x_element = x_nodes[node_indices]
@@ -255,7 +255,7 @@ def steady_BCs(mesh : dict, conduction_matrix : sp.dok_array, generation_vector 
             euclidean_distance = np.sqrt((x_element[1] - x_element[0])**2 + (y_element[1] - y_element[0])**2)
             
             # ! Equation 39 from Project Handout !
-            generation_vector[node_indices] += (0.5 * DELTA_Z * boundary_heat_flux * euclidean_distance * distribution_vector)
+            generation_vector[node_indices] += (0.5 * DELTA_Z * heat_flux_element * euclidean_distance * distribution_vector)
         
     # Loop through each element in the mesh and compute the generation values
     for element_index in range(mesh_elements):
@@ -264,9 +264,9 @@ def steady_BCs(mesh : dict, conduction_matrix : sp.dok_array, generation_vector 
         
         # Get the Boundary Index for the current boundary element
         boundary_index = mesh['BE']['cid'][element_index]
-        boundary_temperature = mesh['BC']['T'][boundary_index]
+        temperature_element = mesh['BC']['T'][boundary_index]
     
-        if np.isfinite(boundary_temperature):
+        if np.isfinite(temperature_element):
             
             for temperature_node in node_indices:
             
@@ -276,7 +276,7 @@ def steady_BCs(mesh : dict, conduction_matrix : sp.dok_array, generation_vector 
                 conduction_matrix[temperature_node, temperature_node] = 1
                 
                 # ! Equation 39 from Project Handout !
-                generation_vector[temperature_node] = -boundary_temperature
+                generation_vector[temperature_node] = -temperature_element
 
             
 def transient_BCs(mesh : dict, capacity_matrix : sp.dok_array, conduction_matrix : sp.dok_array, 
@@ -298,6 +298,9 @@ def transient_BCs(mesh : dict, capacity_matrix : sp.dok_array, conduction_matrix
     # Extract the boundary element from the mesh dictionary
     mesh_elements = mesh['BE'].shape[0]
     
+    # Define the necessary matrices for the boundary condition application
+    distribution_vector = np.array([1, 1])
+    
     # Retrieve x and y coordinates for the nodes and the boundary element from mesh dictionary
     x_nodes, y_nodes = _store.get_nodes(mesh)
     element_nodes = mesh['BE'][_store.N1].values
@@ -309,14 +312,22 @@ def transient_BCs(mesh : dict, capacity_matrix : sp.dok_array, conduction_matrix
         
         # Get the boundary condition index for the current boundary element
         boundary_index = mesh['BE']['cid'][element_index]
-        boundary_heat_flux = mesh['BC']['q'][boundary_index]
-        boundary_temperature = mesh['BC']['T'][boundary_index]
+        heat_flux_element = mesh['BC']['q'][boundary_index]
+        temperature_element = mesh['BC']['T'][boundary_index]
         
-        if np.isfinite(boundary_heat_flux):
-
-            pass
+        if np.isfinite(heat_flux_element):
+            # Get x and y coordinates for the current element
+            x_element = x_nodes[node_indices]
+            y_element = y_nodes[node_indices]
+            
+            # Calculate the distance between the two nodes of the boundary element
+            euclidean_distance = np.sqrt((x_element[1] - x_element[0])**2 + (y_element[1] - y_element[0])**2)
+            
+            # ! Equation 39 from Project Handout !
+            generation_vector[node_indices] += (0.5 * DELTA_Z * heat_flux_element * euclidean_distance * distribution_vector)
         
-        if np.isfinite(boundary_temperature):
+        
+        if np.isfinite(temperature_element):
             
             pass
     
