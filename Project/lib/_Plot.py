@@ -274,8 +274,8 @@ def draw_exterior(axes : pl.axes, mesh: dict, x_coordinate : np.ndarray, y_coord
     
     # Create a color map based on the exterior cell types
     colors = mesh['BC']['color'][connectivity]
-    for e, c in zip(edge, colors):
-        axes.plot(x_coordinate[e], y_coordinate[e], color=c, lw=4, zorder=6)
+    for edge_index, color_index in zip(edge, colors):
+        axes.plot(x_coordinate[edge_index], y_coordinate[edge_index], color=color_index, lw=4, zorder=6)
 
 
 def plot_sparse_figure(sparse_matrix : sp.spmatrix, label : str = 'Coefficient Magnitude, $A_{ij} [-]$', partition : list[int] = None) -> pl.figure:

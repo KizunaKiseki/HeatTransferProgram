@@ -28,63 +28,109 @@ import lib._Plot as _plot
 
 # * VARIABLES *
 # ? ================================================================ ?
+# Time Step for Transient Solvers (in seconds)
+EXPLICIT_TIME_STEP = 3 * 60             # 3 minutes in seconds
+IMPLICIT_TIME_STEP = 20 * 3600          # 20 hours in seconds
+SEMI_IMPLICIT_TIME_STEP = 20 * 3600     # 20 hours in seconds
+TOTAL_TIME = 7 * 3600                   # 7 hours in seconds
 
+# Time Steps Names for Plotting
+EXPLICIT_TIME_STEP_PLOT_NAME = '3 min'
+IMPLICIT_TIME_STEP_PLOT_NAME = '20 hr'
+SEMI_IMPLICIT_TIME_STEP_PLOT_NAME = '20 hr'
+
+# Method Parameters for Transient Solvers
+EXPLICIT_METHOD = 0.0
+SEMI_IMPLICIT_METHOD = 0.5
+IMPLICIT_METHOD = 1.0
+
+# Method Names for Plotting
+EXPLICIT_METHOD_PLOT_NAME = '0/2'
+SEMI_IMPLICIT_METHOD_PLOT_NAME = '1/2'
+IMPLICIT_METHOD_PLOT_NAME = '2/2'
 
 # * FUNCTION *
 # ? ================================================================ ?
 
-def explicit_solver():
+def explicit_solver(mesh_data : dict, conduction_matrix : sp.spmatrix, generation_vector : np.ndarray, capacity_matrix : sp.spmatrix) -> np.ndarray:
     """
-    Summary of what the function does
+    Computes the temperature distribution at the next time step using the explicit method for transient heat conduction problems.
     
     Args:
-    
+        mesh_data (dict): A dictionary containing the mesh data.
+        conduction_matrix (sp.spmatrix): The conduction matrix for the system.
+        generation_vector (np.ndarray): The generation vector for the system.
+        capacity_matrix (sp.spmatrix): The capacity matrix for the system.
     
     Returns:
-    
-    
-    Raises:
+        explicit_solution (np.ndarray): The temperature distribution at the next time step using the explicit method.
     """
+    # Extract the number of nodes from the mesh data dictionary
+    mesh_nodes = mesh['XY'].shape[0]
+    
+    # Initialize initial temperature distribution
+    initial_temperature = EXPLICIT_TIME_STEP * np.ones(mesh_nodes)
+    
+    # Retrieve x and y coordinates for nodes
+    x_nodes, y_nodes = _store.get_nodes(mesh_data)
+    
+    # Identify the node closest to the center of the domain 
+    temperature_min = np.argmin((x_nodes - 0.5)**2 + (y_nodes - 0.5)**2)
+    
+    # ! Linear Algebra for Explicit Method from Project Handout !
+    temperature_new = (capacity_matrix - EXPLICIT_METHOD * EXPLICIT_TIME_STEP * conduction_matrix).tocsc()
+    temperature_old = (capacity_matrix + (1 - EXPLICIT_METHOD) * EXPLICIT_TIME_STEP * conduction_matrix).tocsc()
+    generation_time = EXPLICIT_TIME_STEP * generation_vector
+    
+    # Initialize time variable for transient simulation
+    time = 0.0
+    
+    # Iterate over time steps until total simulation time is reached
+    while time < TOTAL_TIME:
+        explicit_solution = np.linalg.solve(temperature_new, temperature_old @ initial_temperature + generation_time)
+        
+        
     
     
-    
-    pass
+    return explicit_solution
 
 
-def implicit_solver():
+def implicit_solver(mesh_data : dict, conduction_matrix : sp.spmatrix, generation_vector : np.ndarray, capacity_matrix : sp.spmatrix) -> np.ndarray:
     """
-    Summary of what the function does
+    Computes the temperature distribution at the next time step using the implicit method for transient heat conduction problems.
     
     Args:
-    
-    
+        mesh_data (dict): A dictionary containing the mesh data.
+        conduction_matrix (sp.spmatrix): The conduction matrix for the system.
+        generation_vector (np.ndarray): The generation vector for the system.
+        capacity_matrix (sp.spmatrix): The capacity matrix for the system.
+        
     Returns:
-    
-    
-    Raises:
+        implicit_solution (np.ndarray): The temperature distribution at the next time step using the implicit method.
     """
     
     
     
-    pass
+    return implicit_solution
 
 
-def semi_implicit_solver():
+def semi_implicit_solver(mesh_data : dict, conduction_matrix : sp.spmatrix, generation_vector : np.ndarray, capacity_matrix : sp.spmatrix) -> np.ndarray:
     """
-    Summary of what the function does
+    Computes the temperature distribution at the next time step using the semi-implicit method for transient heat conduction problems.
     
     Args:
-    
+        mesh_data (dict): A dictionary containing the mesh data.
+        conduction_matrix (sp.spmatrix): The conduction matrix for the system.
+        generation_vector (np.ndarray): The generation vector for the system.
+        capacity_matrix (sp.spmatrix): The capacity matrix for the system.
     
     Returns:
-    
-    
-    Raises:
+        semi_implicit_solution (np.ndarray): The temperature distribution at the next time step using the semi-implicit method.
     """
     
     
     
-    pass
+    return semi_implicit_solution
 
 
 # * MAIN *
@@ -105,6 +151,11 @@ def main():
     # Initialize figure_path & figure_names for saving figures
     figure_path = []
     figure_names = []
+    
+    # Initialize Solution, Methods, & Time Steps for Transient Solvers
+    transient_solution = []
+    method_names = [EXPLICIT_METHOD_PLOT_NAME, SEMI_IMPLICIT_METHOD_PLOT_NAME, IMPLICIT_METHOD_PLOT_NAME]
+    time_steps = [EXPLICIT_TIME_STEP_PLOT_NAME, SEMI_IMPLICIT_TIME_STEP_PLOT_NAME, IMPLICIT_TIME_STEP_PLOT_NAME]
     
     # Parse Commands
     parser = ap.ArgumentParser(description="Description of the program")
@@ -127,9 +178,10 @@ def main():
         print(f"❎ An error occurred while reading the mesh: {e}")
     
     # ! Steady State Assembly from Project Handout ! 
-    # Build Conduction Matrix & Generation Vector
+    # Build Conduction Matrix, Generation Vector & Capacity Matrix
     conduction_matrix = _solve.build_conduction_matrix(mesh_data)
     generation_vector = _solve.build_generation_vector(mesh_data)
+    capacity_matrix = _solve.build_capacity_matrix(mesh_data)
     
     # Apply Steady-State Boundary Conditions
     _solve.steady_BCs(mesh_data, conduction_matrix, generation_vector)
@@ -138,8 +190,13 @@ def main():
     temperature_distribution = _solve.sp.linalg.spsolve(conduction_matrix.tocsc(), generation_vector)
     
     # ! Transient State Assembly from Project Handout ! 
+    explicit_solution = explicit_solver(mesh_data, conduction_matrix, generation_vector, capacity_matrix)
+    semi_implicit_solution = semi_implicit_solver(mesh_data, conduction_matrix, generation_vector, capacity_matrix)
+    implicit_solution = implicit_solver(mesh_data, conduction_matrix, generation_vector, capacity_matrix)
     
-    
+    transient_solution.append(explicit_solution)
+    transient_solution.append(semi_implicit_solution)
+    transient_solution.append(implicit_solution)
     
     # ! Create Figure 4 ⇒ Graphical Depiction of the Mesh !
     mesh_figure = _plot.draw_mesh_figure(mesh_data)
@@ -155,6 +212,11 @@ def main():
     temperature_figure = _plot.draw_temperature_field_figure(mesh_data, -temperature_distribution)
     figure_path.append(temperature_figure)
     figure_names.append('temperature_figure')
+    
+    # ! Create Figure 7 ⇒ Transient Temperature Distribution for Each Method !
+    evolution_figure = _plot.plot_evolution(transient_solution, methods, time_steps)
+    figure_path.append(evolution_figure)
+    figure_names.append('evolution_figure')
     
     # Create Figures Dictionary to save figures
     figures_dictionary = os.path.join(os.path.dirname(__file__), 'Figures')
