@@ -102,7 +102,7 @@ def main():
     
     Raises:
     """
-    # Initialize Figure_Path & Figure_Names for saving figures
+    # Initialize figure_path & figure_names for saving figures
     figure_path = []
     figure_names = []
     
@@ -126,6 +126,7 @@ def main():
     except Exception as e:
         print(f"❎ An error occurred while reading the mesh: {e}")
     
+    # ! Steady State Assembly from Project Handout ! 
     # Build Conduction Matrix & Generation Vector
     conduction_matrix = _solve.build_conduction_matrix(mesh_data)
     generation_vector = _solve.build_generation_vector(mesh_data)
@@ -135,7 +136,11 @@ def main():
     
     # Solve for Steady-State Temperature Distribution
     temperature_distribution = _solve.sp.linalg.spsolve(conduction_matrix.tocsc(), generation_vector)
-        
+    
+    # ! Transient State Assembly from Project Handout ! 
+    
+    
+    
     # ! Create Figure 4 ⇒ Graphical Depiction of the Mesh !
     mesh_figure = _plot.draw_mesh_figure(mesh_data)
     figure_path.append(mesh_figure)
