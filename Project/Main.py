@@ -136,9 +136,7 @@ def main():
     generation_vector = _solve.build_generation_vector(mesh_data)
     
     # Apply Steady-State Boundary Conditions
-    # TODO: Implement the function to apply steady-state boundary conditions in solver.py ⇒ steady_BCs()
     _solve.steady_BCs(mesh_data, conduction_matrix, generation_vector)
-    
     
     # ! Create Figure 5 ⇒ Sparsity Pattern of Conduction Matrix !
     sparsity_figure = _plot.plot_sparse_figure(conduction_matrix)
@@ -159,7 +157,7 @@ def main():
     os.makedirs(figures_dictionary, exist_ok=True)
  
     for figure, name in zip(figure_path, figure_names):
-        figure_file_path = os.path.join(figures_dictionary, f'{name}.png')
+        figure_file_path = os.path.join(figures_dictionary, f'{name}.pdf')
         figure.savefig(figure_file_path, dpi=300)
         print(f"✅ {name} saved to {figure_file_path}")
     
