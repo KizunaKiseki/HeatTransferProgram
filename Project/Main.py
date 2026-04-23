@@ -28,16 +28,23 @@ import lib._Plot as _plot
 
 # * VARIABLES *
 # ? ================================================================ ?
+
+# Time Conversion Constants
+CONVERT_HOURS_TO_SECONDS = 3600
+CONVERT_MINUTES_TO_SECONDS = 60
+
+# TOTAL Simulation Time for Transient Solvers (in seconds)
+TOTAL_TIME = CONVERT_HOURS_TO_SECONDS * 700                 # 700 hours
+
 # Time Step for Transient Solvers (in seconds)
-EXPLICIT_TIME_STEP = 3 * 60             # 3 minutes in seconds
-IMPLICIT_TIME_STEP = 20 * 3600          # 20 hours in seconds
-SEMI_IMPLICIT_TIME_STEP = 20 * 3600     # 20 hours in seconds
-TOTAL_TIME = 7 * 3600                   # 7 hours in seconds
+EXPLICIT_TIME_STEP = CONVERT_MINUTES_TO_SECONDS * 3         # 3 minutes
+IMPLICIT_TIME_STEP = CONVERT_HOURS_TO_SECONDS * 20          # 20 hours
+SEMI_IMPLICIT_TIME_STEP = CONVERT_HOURS_TO_SECONDS * 20     # 20 hours
 
 # Time Steps Names for Plotting
-EXPLICIT_TIME_STEP_PLOT_NAME = '3 min'
-IMPLICIT_TIME_STEP_PLOT_NAME = '20 hr'
-SEMI_IMPLICIT_TIME_STEP_PLOT_NAME = '20 hr'
+EXPLICIT_TIME_NAME = '3 min'
+IMPLICIT_TIME_NAME = '20 hr'
+SEMI_IMPLICIT_TIME_NAME = '20 hr'
 
 # Method Parameters for Transient Solvers
 EXPLICIT_METHOD = 0.0
@@ -45,14 +52,14 @@ SEMI_IMPLICIT_METHOD = 0.5
 IMPLICIT_METHOD = 1.0
 
 # Method Names for Plotting
-EXPLICIT_METHOD_PLOT_NAME = '0/2'
-SEMI_IMPLICIT_METHOD_PLOT_NAME = '1/2'
-IMPLICIT_METHOD_PLOT_NAME = '2/2'
+EXPLICIT_METHOD_NAME = '0/2'
+SEMI_IMPLICIT_METHOD_NAME = '1/2'
+IMPLICIT_METHOD_NAME = '2/2'
 
 # * FUNCTION *
 # ? ================================================================ ?
 
-def explicit_solver(mesh_data : dict, conduction_matrix : sp.spmatrix, generation_vector : np.ndarray, capacity_matrix : sp.spmatrix) -> np.ndarray:
+def transient_solver(mesh_data : dict, conduction_matrix : sp.spmatrix, generation_vector : np.ndarray, capacity_matrix : sp.spmatrix) -> np.ndarray:
     """
     Computes the temperature distribution at the next time step using the explicit method for transient heat conduction problems.
     
@@ -63,27 +70,38 @@ def explicit_solver(mesh_data : dict, conduction_matrix : sp.spmatrix, generatio
         capacity_matrix (sp.spmatrix): The capacity matrix for the system.
     
     Returns:
-        explicit_solution (np.ndarray): The temperature distribution at the next time step using the explicit method.
+        transient_solution (np.ndarray): The temperature distribution at the next time step using the explicit method.
     """
     # Extract the number of nodes from the mesh data dictionary
-    mesh_nodes = mesh['XY'].shape[0]
-    
-    # Initialize initial temperature distribution
-    initial_temperature = EXPLICIT_TIME_STEP * np.ones(mesh_nodes)
+    mesh_nodes = mesh_data['XY'].shape[0]
     
     # Retrieve x and y coordinates for nodes
     x_nodes, y_nodes = _store.get_nodes(mesh_data)
-    
+        
     # Identify the node closest to the center of the domain 
     temperature_min = np.argmin((x_nodes - 0.5)**2 + (y_nodes - 0.5)**2)
     
-    # ! Linear Algebra for Explicit Method from Project Handout !
-    temperature_new = (capacity_matrix - EXPLICIT_METHOD * EXPLICIT_TIME_STEP * conduction_matrix).tocsc()
-    temperature_old = (capacity_matrix + (1 - EXPLICIT_METHOD) * EXPLICIT_TIME_STEP * conduction_matrix).tocsc()
-    generation_time = EXPLICIT_TIME_STEP * generation_vector
+    # Initialize Transient Arrays
+    transient_solution = []
+    method_type = [EXPLICIT_METHOD, SEMI_IMPLICIT_METHOD, IMPLICIT_METHOD]
+    time_steps = [EXPLICIT_TIME_STEP, SEMI_IMPLICIT_TIME_STEP, IMPLICIT_TIME_STEP]
     
-    # Initialize time variable for transient simulation
-    time = 0.0
+    for time_index in range(len(method_type)):
+        
+        # Initialize initial temperature distribution
+        initial_temperature = time_steps[time_index] * np.ones(mesh_nodes)
+        
+        # ! Generalized Format from Project Handout !
+        temperature_new = (capacity_matrix - method_type[time_index] * time_steps[time_index] * conduction_matrix).tocsc()
+        temperature_old = (capacity_matrix + (1 - method_type[time_index]) * time_steps[time_index] * conduction_matrix).tocsc()
+        generation_time = time_steps[time_index] * generation_vector
+        
+        # Initialize initial time for each method
+        initial_time = 0.0
+        
+        for time in range(initial_time, TOTAL_TIME, time_steps[time_index]):
+            pass
+
     
     # Iterate over time steps until total simulation time is reached
     while time < TOTAL_TIME:
@@ -92,45 +110,8 @@ def explicit_solver(mesh_data : dict, conduction_matrix : sp.spmatrix, generatio
         
     
     
-    return explicit_solution
+    return transient_solution
 
-
-def implicit_solver(mesh_data : dict, conduction_matrix : sp.spmatrix, generation_vector : np.ndarray, capacity_matrix : sp.spmatrix) -> np.ndarray:
-    """
-    Computes the temperature distribution at the next time step using the implicit method for transient heat conduction problems.
-    
-    Args:
-        mesh_data (dict): A dictionary containing the mesh data.
-        conduction_matrix (sp.spmatrix): The conduction matrix for the system.
-        generation_vector (np.ndarray): The generation vector for the system.
-        capacity_matrix (sp.spmatrix): The capacity matrix for the system.
-        
-    Returns:
-        implicit_solution (np.ndarray): The temperature distribution at the next time step using the implicit method.
-    """
-    
-    
-    
-    return implicit_solution
-
-
-def semi_implicit_solver(mesh_data : dict, conduction_matrix : sp.spmatrix, generation_vector : np.ndarray, capacity_matrix : sp.spmatrix) -> np.ndarray:
-    """
-    Computes the temperature distribution at the next time step using the semi-implicit method for transient heat conduction problems.
-    
-    Args:
-        mesh_data (dict): A dictionary containing the mesh data.
-        conduction_matrix (sp.spmatrix): The conduction matrix for the system.
-        generation_vector (np.ndarray): The generation vector for the system.
-        capacity_matrix (sp.spmatrix): The capacity matrix for the system.
-    
-    Returns:
-        semi_implicit_solution (np.ndarray): The temperature distribution at the next time step using the semi-implicit method.
-    """
-    
-    
-    
-    return semi_implicit_solution
 
 
 # * MAIN *
@@ -151,11 +132,6 @@ def main():
     # Initialize figure_path & figure_names for saving figures
     figure_path = []
     figure_names = []
-    
-    # Initialize Solution, Methods, & Time Steps for Transient Solvers
-    transient_solution = []
-    method_names = [EXPLICIT_METHOD_PLOT_NAME, SEMI_IMPLICIT_METHOD_PLOT_NAME, IMPLICIT_METHOD_PLOT_NAME]
-    time_steps = [EXPLICIT_TIME_STEP_PLOT_NAME, SEMI_IMPLICIT_TIME_STEP_PLOT_NAME, IMPLICIT_TIME_STEP_PLOT_NAME]
     
     # Parse Commands
     parser = ap.ArgumentParser(description="Description of the program")
@@ -190,13 +166,9 @@ def main():
     temperature_distribution = _solve.sp.linalg.spsolve(conduction_matrix.tocsc(), generation_vector)
     
     # ! Transient State Assembly from Project Handout ! 
-    explicit_solution = explicit_solver(mesh_data, conduction_matrix, generation_vector, capacity_matrix)
-    semi_implicit_solution = semi_implicit_solver(mesh_data, conduction_matrix, generation_vector, capacity_matrix)
-    implicit_solution = implicit_solver(mesh_data, conduction_matrix, generation_vector, capacity_matrix)
     
-    transient_solution.append(explicit_solution)
-    transient_solution.append(semi_implicit_solution)
-    transient_solution.append(implicit_solution)
+    
+    
     
     # ! Create Figure 4 ⇒ Graphical Depiction of the Mesh !
     mesh_figure = _plot.draw_mesh_figure(mesh_data)
@@ -214,7 +186,7 @@ def main():
     figure_names.append('temperature_figure')
     
     # ! Create Figure 7 ⇒ Transient Temperature Distribution for Each Method !
-    evolution_figure = _plot.plot_evolution(transient_solution, methods, time_steps)
+    evolution_figure = _plot.plot_evolution(None, None, None)
     figure_path.append(evolution_figure)
     figure_names.append('evolution_figure')
     

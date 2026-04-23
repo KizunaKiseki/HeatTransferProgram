@@ -48,7 +48,7 @@ def plot_evolution_figure(solution_array : list[np.ndarray], method_types : list
     Args:
         solution_array (list[np.ndarray]): A list of solution arrays. 
         method_types (list[str]): A list of strings indicating the method type.
-        time_steps (list[float]): A list of time step values corresponding to each solution/method.
+        time_steps (list[float]): A list of floats indicating the time step values corresponding to each solution/method.
     
     Returns:
         figure (pl.figure): A Matplotlib figure object containing the plot of temperature evolution.
