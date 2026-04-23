@@ -131,16 +131,6 @@ def main():
     figure_path.append(mesh_figure)
     figure_names.append('mesh_figure')
     
-    # Build Sparse Matrix
-    sparse_matrix = _solve.build_conduction_matrix(mesh_data)
-    
-    # TODO: Implement Steady-State Boundary Conditions on the Sparse Matrix
-
-    # ! Create Figure 5 ⇒ Sparsity Pattern of Conduction Matrix !
-    sparsity_figure = _plot.plot_sparse_figure(sparse_matrix)
-    figure_path.append(sparsity_figure)
-    figure_names.append('sparsity_figure')
-    
     # Build Conduction Matrix & Generation Vector
     conduction_matrix = _solve.build_conduction_matrix(mesh_data)
     generation_vector = _solve.build_generation_vector(mesh_data)
@@ -149,11 +139,17 @@ def main():
     # TODO: Implement the function to apply steady-state boundary conditions in solver.py ⇒ steady_BCs()
     _solve.steady_BCs(mesh_data, conduction_matrix, generation_vector)
     
+    
+    # ! Create Figure 5 ⇒ Sparsity Pattern of Conduction Matrix !
+    sparsity_figure = _plot.plot_sparse_figure(conduction_matrix)
+    figure_path.append(sparsity_figure)
+    figure_names.append('sparsity_figure')
+
     # Solve for Steady-State Temperature Distribution
     temperature_distribution = _solve.sp.linalg.spsolve(conduction_matrix.tocsc(), generation_vector)
     
     # ! Create Figure 6 ⇒ Steady-State Temperature Distribution !
-    temperature_figure = _plot.draw_temperature_field_figure(mesh_data, temperature_distribution)
+    temperature_figure = _plot.draw_temperature_field_figure(mesh_data, -temperature_distribution)
     figure_path.append(temperature_figure)
     figure_names.append('temperature_figure')
     

@@ -205,9 +205,9 @@ def build_generation_vector(mesh : dict) -> np.ndarray:
         generation_element = mesh['IC']['e'][interior_index]
         
         # ! Equation 22 from Project Handout !
-        volume_element = (DELTA_Z * np.abs(np.linalg.det(build_shape_matrix(x_element, y_element))) @ identity_matrix) / 6
+        volume_element = (DELTA_Z * np.abs(np.linalg.det(build_shape_matrix(x_element, y_element))) * identity_matrix) / 6
         
-        generation_vector[node_indices] += generation_element * volume_element
+        generation_vector[node_indices] += generation_element * volume_element.sum()
     
     
     return generation_vector
@@ -229,6 +229,9 @@ def steady_BCs(mesh : dict, conduction_matrix : sp.dok_array, generation_vector 
     # Extract the boundary element from the mesh dictionary
     mesh_elements = mesh['BE'].shape[0]
     
+    # Define the necessary matrices for the boundary condition application
+    distribution_vector = np.array([1, 1])
+    
     # Retrieve x and y coordinates for the nodes and the boundary element from mesh dictionary
     x_nodes, y_nodes = _store.get_nodes(mesh)
     element_nodes = mesh['BE'][_store.N1].values
@@ -244,7 +247,15 @@ def steady_BCs(mesh : dict, conduction_matrix : sp.dok_array, generation_vector 
     
         if np.isfinite(boundary_heat_flux):
             
-            pass
+            # Get x and y coordinates for the current element
+            x_element = x_nodes[node_indices]
+            y_element = y_nodes[node_indices]
+            
+            # Calculate the distance between the two nodes of the boundary element
+            euclidean_distance = np.sqrt((x_element[1] - x_element[0])**2 + (y_element[1] - y_element[0])**2)
+            
+            # ! Equation 39 from Project Handout !
+            generation_vector[node_indices] += (0.5 * DELTA_Z * boundary_heat_flux * euclidean_distance * distribution_vector)
         
     # Loop through each element in the mesh and compute the generation values
     for element_index in range(mesh_elements):
@@ -256,11 +267,18 @@ def steady_BCs(mesh : dict, conduction_matrix : sp.dok_array, generation_vector 
         boundary_temperature = mesh['BC']['T'][boundary_index]
     
         if np.isfinite(boundary_temperature):
+            
+            for temperature_node in node_indices:
+            
+                # ? All coefficients in the row corresponding to the target temperature,
+                # ? must be set to zero except for the diagonal elements, which must be set to 1.
+                conduction_matrix[temperature_node, :] = 0
+                conduction_matrix[temperature_node, temperature_node] = 1
+                
+                # ! Equation 39 from Project Handout !
+                generation_vector[temperature_node] = -boundary_temperature
 
-            pass
-        
-    
-
+            
 def transient_BCs(mesh : dict, capacity_matrix : sp.dok_array, conduction_matrix : sp.dok_array, 
                   generation_vector : np.ndarray, temperature_vector : np.ndarray) -> None:
     """
