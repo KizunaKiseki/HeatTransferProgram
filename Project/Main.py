@@ -59,19 +59,42 @@ IMPLICIT_METHOD_NAME = '2/2'
 # * FUNCTION *
 # ? ================================================================ ?
 
-def transient_solver(mesh_data : dict, conduction_matrix : sp.spmatrix, generation_vector : np.ndarray, capacity_matrix : sp.spmatrix) -> np.ndarray:
+def steady_solver(mesh_data : dict) -> np.ndarray:
+    """
+    Computes the steady-state temperature distribution for a given mesh.
+    
+    Args:
+        mesh_data (dict): A dictionary containing the mesh data.
+
+    
+    Returns:
+        steady_solution (np.ndarray): The steady-state temperature distribution.
+    """
+    
+    
+    
+    
+    pass
+
+
+
+def transient_solver(mesh_data : dict) -> list[np.ndarray]:
     """
     Computes the temperature distribution at the next time step using the explicit method for transient heat conduction problems.
     
     Args:
         mesh_data (dict): A dictionary containing the mesh data.
-        conduction_matrix (sp.spmatrix): The conduction matrix for the system.
-        generation_vector (np.ndarray): The generation vector for the system.
-        capacity_matrix (sp.spmatrix): The capacity matrix for the system.
+
     
     Returns:
-        transient_solution (np.ndarray): The temperature distribution at the next time step using the explicit method.
+        transient_solution (list[np.ndarray]): A list containing the temperature distributions at each time step for different methods.
     """
+    # Build Conduction Matrix, Generation Vector, and Capacity Matrix
+    conduction_matrix = _solve.build_conduction(mesh_data)
+    generation_vector = _solve.build_generation(mesh_data)
+    capacity_matrix = _solve.build_capacity(mesh_data)
+    
+    
     # Extract the number of nodes from the mesh data dictionary
     mesh_nodes = mesh_data['XY'].shape[0]
     
@@ -154,10 +177,9 @@ def main():
         print(f"❎ An error occurred while reading the mesh: {e}")
     
     # ! Steady State Assembly from Project Handout ! 
-    # Build Conduction Matrix, Generation Vector & Capacity Matrix
+    # Build Conduction Matrix & Generation Vector 
     conduction_matrix = _solve.build_conduction_matrix(mesh_data)
     generation_vector = _solve.build_generation_vector(mesh_data)
-    capacity_matrix = _solve.build_capacity_matrix(mesh_data)
     
     # Apply Steady-State Boundary Conditions
     _solve.steady_BCs(mesh_data, conduction_matrix, generation_vector)
