@@ -143,8 +143,6 @@ def main():
     
     # Build Conduction Matrix & Generation Vector
     conduction_matrix = _solve.build_conduction_matrix(mesh_data)
-    
-    # TODO: Implement the generation vector in solver.py ⇒ build_generation_vector()
     generation_vector = _solve.build_generation_vector(mesh_data)
     
     # Apply Steady-State Boundary Conditions
