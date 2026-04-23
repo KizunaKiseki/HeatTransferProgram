@@ -316,16 +316,8 @@ def transient_BCs(mesh : dict, capacity_matrix : sp.dok_array, conduction_matrix
         temperature_element = mesh['BC']['T'][boundary_index]
         
         if np.isfinite(heat_flux_element):
-            # Get x and y coordinates for the current element
-            x_element = x_nodes[node_indices]
-            y_element = y_nodes[node_indices]
             
-            # Calculate the distance between the two nodes of the boundary element
-            euclidean_distance = np.sqrt((x_element[1] - x_element[0])**2 + (y_element[1] - y_element[0])**2)
-            
-            # ! Equation 39 from Project Handout !
-            generation_vector[node_indices] += (0.5 * DELTA_Z * heat_flux_element * euclidean_distance * distribution_vector)
-        
+            pass
         
         if np.isfinite(temperature_element):
             
