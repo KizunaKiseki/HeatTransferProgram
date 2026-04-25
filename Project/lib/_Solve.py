@@ -333,9 +333,8 @@ def transient_BCs(mesh : dict, conduction_matrix : sp.dok_array, generation_vect
             for temperature_node in node_indices:
                 
                 # ? All terms in the conduction matrix for the impacted rows should be set to zero.
+                                # ? All terms in the generation vector for the impacted rows should be set to zero.
                 conduction_matrix[temperature_node, :] = 0
-                
-                # ? All terms in the generation vector for the impacted rows should be set to zero.
                 generation_vector[temperature_node] = 0
                 
                 # ? Set initial temperature to ensure it does not change. 
