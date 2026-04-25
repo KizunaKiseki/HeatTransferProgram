@@ -114,6 +114,9 @@ def transient_solver(mesh_data : dict) -> list[np.ndarray]:
     Returns:
         transient_solution (list[np.ndarray]): A list containing the temperature distributions at each time step for different methods.
     """
+    # Initialize Transient Solution List to store temperature distributions for each method
+    transient_solution = []
+    
     # Extract the number of nodes from the mesh data dictionary
     mesh_nodes = mesh_data['XY'].shape[0]
     
@@ -122,9 +125,6 @@ def transient_solver(mesh_data : dict) -> list[np.ndarray]:
         
     # Identify the node closest to the center of the domain 
     temperature_min = np.argmin((x_nodes - 0.5)**2 + (y_nodes - 0.5)**2)
-    
-    # Initialize Transient Solution List to store temperature distributions for each method
-    transient_solution = []
 
     for time_index in range(len(METHOD_TYPES)):
         
