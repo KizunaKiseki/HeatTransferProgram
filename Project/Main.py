@@ -63,10 +63,11 @@ def steady_solver(mesh_data : dict) -> np.ndarray:
     """
     Computes the steady-state temperature distribution for a given mesh.
     
+    ! Steady State Assembly from Project Handout !
+    
     Args:
         mesh_data (dict): A dictionary containing the mesh data.
 
-    
     Returns:
         steady_solution (np.ndarray): The steady-state temperature distribution.
     """
@@ -97,17 +98,15 @@ def transient_solver(mesh_data : dict) -> list[np.ndarray]:
     """
     Computes the temperature distribution at the next time step using the explicit method for transient heat conduction problems.
     
+    ! Transient State Assembly from Project Handout !
+    
     Args:
         mesh_data (dict): A dictionary containing the mesh data.
 
-    
     Returns:
         transient_solution (list[np.ndarray]): A list containing the temperature distributions at each time step for different methods.
     """
-    # Build Conduction Matrix, Generation Vector, and Capacity Matrix
-    conduction_matrix = _solve.build_conduction(mesh_data)
-    generation_vector = _solve.build_generation(mesh_data)
-    capacity_matrix = _solve.build_capacity(mesh_data)
+
     
     
     # Extract the number of nodes from the mesh data dictionary
@@ -126,6 +125,11 @@ def transient_solver(mesh_data : dict) -> list[np.ndarray]:
     
     for time_index in range(len(method_type)):
         
+        # Builds new matrices and vectors for each method type and time step
+        conduction_matrix = _solve.build_conduction(mesh_data)
+        generation_vector = _solve.build_generation(mesh_data)
+        capacity_matrix = _solve.build_capacity(mesh_data)
+                
         # Initialize initial temperature distribution
         initial_temperature = time_steps[time_index] * np.ones(mesh_nodes)
         
@@ -171,6 +175,10 @@ def main():
     figure_path = []
     figure_names = []
     
+    # Initialize Evolution Figure Plot Names for Transient Solver
+    evolution_method_names = [EXPLICIT_METHOD_NAME, SEMI_IMPLICIT_METHOD_NAME, IMPLICIT_METHOD_NAME]
+    evolution_time_names = [EXPLICIT_TIME_NAME, SEMI_IMPLICIT_TIME_NAME, IMPLICIT_TIME_NAME]
+    
     # Parse Commands
     parser = ap.ArgumentParser(description="Description of the program")
     parser.add_argument('mesh_xlsx', type = str, help='The name of the Excel file containing the mesh data.')
@@ -197,7 +205,6 @@ def main():
     # ! Transient State Solution !
     transient_solution = transient_solver(mesh_data)
     
-    
     # ! Create Figure 4 ⇒ Graphical Depiction of the Mesh !
     mesh_figure = _plot.draw_mesh_figure(mesh_data)
     figure_path.append(mesh_figure)
@@ -213,7 +220,7 @@ def main():
     figure_names.append('temperature_figure')
     
     # ! Create Figure 7 ⇒ Transient Temperature Distribution for Each Method !
-    evolution_figure = _plot.plot_evolution(None, None, None)
+    evolution_figure = _plot.plot_evolution(transient_solution, evolution_method_names, evolution_time_names)
     figure_path.append(evolution_figure)
     figure_names.append('evolution_figure')
     
