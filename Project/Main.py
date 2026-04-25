@@ -45,21 +45,25 @@ TOTAL_TIME = CONVERT_HOURS_TO_SECONDS * 700                 # 700 hours in secon
 EXPLICIT_TIME_STEP = CONVERT_MINUTES_TO_SECONDS * 3         # 3 minutes in seconds
 IMPLICIT_TIME_STEP = CONVERT_HOURS_TO_SECONDS * 20          # 20 hours in seconds
 SEMI_IMPLICIT_TIME_STEP = CONVERT_HOURS_TO_SECONDS * 20     # 20 hours in seconds
+TIME_STEPS = [EXPLICIT_TIME_STEP, SEMI_IMPLICIT_TIME_STEP, IMPLICIT_TIME_STEP]
 
 # Time Steps Names for Plotting
 EXPLICIT_TIME_NAME = '3 min'
 IMPLICIT_TIME_NAME = '20 hr'
 SEMI_IMPLICIT_TIME_NAME = '20 hr'
+TIME_STEP_NAMES = [EXPLICIT_TIME_NAME, SEMI_IMPLICIT_TIME_NAME, IMPLICIT_TIME_NAME]
 
 # Method Parameters for Transient Solvers
 EXPLICIT_METHOD = 0.0
 SEMI_IMPLICIT_METHOD = 0.5
 IMPLICIT_METHOD = 1.0
+METHOD_TYPES = [EXPLICIT_METHOD, SEMI_IMPLICIT_METHOD, IMPLICIT_METHOD]
 
 # Method Names for Plotting
 EXPLICIT_METHOD_NAME = '0/2'
 SEMI_IMPLICIT_METHOD_NAME = '1/2'
 IMPLICIT_METHOD_NAME = '2/2'
+METHOD_NAMES = [EXPLICIT_METHOD_NAME, SEMI_IMPLICIT_METHOD_NAME, IMPLICIT_METHOD_NAME]
 
 # * FUNCTION *
 # ? ================================================================ ?
@@ -119,12 +123,10 @@ def transient_solver(mesh_data : dict) -> list[np.ndarray]:
     # Identify the node closest to the center of the domain 
     temperature_min = np.argmin((x_nodes - 0.5)**2 + (y_nodes - 0.5)**2)
     
-    # Initialize Transient Arrays
+    # Initialize Transient Solution List to store temperature distributions for each method
     transient_solution = []
-    method_type = [EXPLICIT_METHOD, SEMI_IMPLICIT_METHOD, IMPLICIT_METHOD]
-    time_steps = [EXPLICIT_TIME_STEP, SEMI_IMPLICIT_TIME_STEP, IMPLICIT_TIME_STEP]
-    
-    for time_index in range(len(method_type)):
+
+    for time_index in range(len(METHOD_TYPES)):
         
         # Construct Conduction Matrix, Generation Vector, and Capacity Matrix
         # ? The matrix is reset after each method so that each method is independent ?
@@ -139,16 +141,16 @@ def transient_solver(mesh_data : dict) -> list[np.ndarray]:
         _solve.transient_BCs(mesh_data, conduction_matrix, generation_vector, initial_temperature)
         
         # ! Generalized Format from Project Handout !
-        new_matrix = (capacity_matrix - method_type[time_index] * time_steps[time_index] * conduction_matrix).tocsc()
-        old_matrix = (capacity_matrix + (1 - method_type[time_index]) * time_steps[time_index] * conduction_matrix).tocsc()
-        generation_time = time_steps[time_index] * generation_vector
+        new_matrix = (capacity_matrix - METHOD_TYPES[time_index] * TIME_STEPS[time_index] * conduction_matrix).tocsc()
+        old_matrix = (capacity_matrix + (1 - METHOD_TYPES[time_index]) * TIME_STEPS[time_index] * conduction_matrix).tocsc()
+        generation_time = TIME_STEPS[time_index] * generation_vector
         
         # Initialize initial time & temperature data for transient solutions
         initial_time = 0
         temperature_data = []
         
         # ! Time-stepping loop for transient solution !
-        for time in range(initial_time, TOTAL_TIME, time_steps[time_index]):
+        for time in range(initial_time, TOTAL_TIME, TIME_STEPS[time_index]):
             explicit_solution = sp.linalg.spsolve(new_matrix, old_matrix @ initial_temperature + generation_time)    
             initial_temperature = explicit_solution
             
@@ -178,10 +180,6 @@ def main():
     # Initialize figure_path & figure_names for saving figures
     figure_path = []
     figure_names = []
-    
-    # Initialize Evolution Figure Plot Names for Transient Solver
-    evolution_method_names = [EXPLICIT_METHOD_NAME, SEMI_IMPLICIT_METHOD_NAME, IMPLICIT_METHOD_NAME]
-    evolution_time_names = [EXPLICIT_TIME_NAME, SEMI_IMPLICIT_TIME_NAME, IMPLICIT_TIME_NAME]
     
     # Parse Commands
     parser = ap.ArgumentParser(description="Description of the program")
@@ -223,7 +221,7 @@ def main():
     figure_names.append('temperature_figure')
     
     # ! Create Figure 7 ⇒ Transient Temperature Distribution for Each Method !
-    evolution_figure = _plot.plot_evolution_figure(transient_solution, evolution_method_names, evolution_time_names)
+    evolution_figure = _plot.plot_evolution_figure(transient_solution, METHOD_NAMES, TIME_STEP_NAMES)
     figure_path.append(evolution_figure)
     figure_names.append('evolution_figure')
     
