@@ -151,6 +151,7 @@ def transient_solver(mesh_data : dict) -> list[np.ndarray]:
         for time in range(initial_time, TOTAL_TIME, time_steps[time_index]):
             explicit_solution = sp.linalg.spsolve(new_matrix, old_matrix @ initial_temperature + generation_time)    
             initial_temperature = explicit_solution
+            
             temperature_data.append((time, explicit_solution[temperature_min]))
 
         transient_solution.append(np.array(temperature_data))
