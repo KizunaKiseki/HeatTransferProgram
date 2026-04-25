@@ -108,9 +108,10 @@ def build_capacity_matrix(mesh : dict) -> sp.dok_array:
         capacity_element = (DELTA_Z * mesh['IC']['C'][interior_index] * mesh['IC']['rho'][interior_index] *
                           np.abs(np.linalg.det(build_shape_matrix(x_element, y_element))) * identity_matrix) / 6
         
-        for local_index, global_index in enumerate(node_indices):
-            capacity_matrix[global_index, global_index] += capacity_element[local_index, local_index]
-  
+        I = node_indices.reshape(3,1)
+        J = node_indices.reshape(1,3)
+        
+        capacity_matrix[I, J] += capacity_element
             
     return capacity_matrix
 
@@ -333,7 +334,7 @@ def transient_BCs(mesh : dict, conduction_matrix : sp.dok_array, generation_vect
             for temperature_node in node_indices:
                 
                 # ? All terms in the conduction matrix for the impacted rows should be set to zero.
-                                # ? All terms in the generation vector for the impacted rows should be set to zero.
+                # ? All terms in the generation vector for the impacted rows should be set to zero.
                 conduction_matrix[temperature_node, :] = 0
                 generation_vector[temperature_node] = 0
                 

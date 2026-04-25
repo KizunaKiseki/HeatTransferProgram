@@ -31,6 +31,9 @@ import lib._Plot as _plot
 # * VARIABLES *
 # ? ================================================================ ?
 
+# Starting Temperature
+START_TEMPERATURE = 300   # K
+
 # Time Conversion Constants
 CONVERT_HOURS_TO_SECONDS = 3600
 CONVERT_MINUTES_TO_SECONDS = 60
@@ -95,7 +98,6 @@ def steady_solver(mesh_data : dict) -> np.ndarray:
     return sparsity_figure, temperature_figure
 
 
-
 def transient_solver(mesh_data : dict) -> list[np.ndarray]:
     """
     Computes the temperature distribution at the next time step using the explicit method for transient heat conduction problems.
@@ -131,7 +133,7 @@ def transient_solver(mesh_data : dict) -> list[np.ndarray]:
         capacity_matrix = _solve.build_capacity_matrix(mesh_data)
                 
         # Initialize initial temperature distribution
-        initial_temperature = time_steps[time_index] * np.ones(mesh_nodes)
+        initial_temperature = START_TEMPERATURE * np.ones(mesh_nodes)
         
         # Apply Transient Boundary Conditions
         _solve.transient_BCs(mesh_data, conduction_matrix, generation_vector, initial_temperature)
@@ -145,6 +147,7 @@ def transient_solver(mesh_data : dict) -> list[np.ndarray]:
         initial_time = 0
         temperature_data = []
         
+        # ! Time-stepping loop for transient solution !
         for time in range(initial_time, TOTAL_TIME, time_steps[time_index]):
             explicit_solution = sp.linalg.spsolve(new_matrix, old_matrix @ initial_temperature + generation_time)    
             initial_temperature = explicit_solution
@@ -230,7 +233,7 @@ def main():
     # Save Figures to Figures Directory as PDF
     for figure, name in zip(figure_path, figure_names):
         figure_file_path = os.path.join(figures_dictionary, f'{name}.pdf')
-        figure.savefig(figure_file_path, dpi=300)
+        figure.savefig(figure_file_path)
         
         # Success Message for Saving Figure
         print(f"✅ {name} saved to {figure_file_path}")
