@@ -36,12 +36,12 @@ CONVERT_HOURS_TO_SECONDS = 3600
 CONVERT_MINUTES_TO_SECONDS = 60
 
 # TOTAL Simulation Time for Transient Solvers (in seconds)
-TOTAL_TIME = CONVERT_HOURS_TO_SECONDS * 700                 # 700 hours
+TOTAL_TIME = CONVERT_HOURS_TO_SECONDS * 700                 # 700 hours in seconds
 
 # Time Step for Transient Solvers (in seconds)
-EXPLICIT_TIME_STEP = CONVERT_MINUTES_TO_SECONDS * 3         # 3 minutes
-IMPLICIT_TIME_STEP = CONVERT_HOURS_TO_SECONDS * 20          # 20 hours
-SEMI_IMPLICIT_TIME_STEP = CONVERT_HOURS_TO_SECONDS * 20     # 20 hours
+EXPLICIT_TIME_STEP = CONVERT_MINUTES_TO_SECONDS * 3         # 3 minutes in seconds
+IMPLICIT_TIME_STEP = CONVERT_HOURS_TO_SECONDS * 20          # 20 hours in seconds
+SEMI_IMPLICIT_TIME_STEP = CONVERT_HOURS_TO_SECONDS * 20     # 20 hours in seconds
 
 # Time Steps Names for Plotting
 EXPLICIT_TIME_NAME = '3 min'
@@ -145,10 +145,10 @@ def transient_solver(mesh_data : dict) -> list[np.ndarray]:
         initial_time = 0
         temperature_data = []
         
-        for _ in range(initial_time, TOTAL_TIME, time_steps[time_index]):
+        for time in range(initial_time, TOTAL_TIME, time_steps[time_index]):
             explicit_solution = sp.linalg.spsolve(new_matrix, old_matrix @ initial_temperature + generation_time)    
             initial_temperature = explicit_solution
-            temperature_data.append(explicit_solution[temperature_min])
+            temperature_data.append((time, explicit_solution[temperature_min]))
 
         transient_solution.append(np.array(temperature_data))
 
@@ -219,7 +219,7 @@ def main():
     figure_names.append('temperature_figure')
     
     # ! Create Figure 7 ⇒ Transient Temperature Distribution for Each Method !
-    evolution_figure = _plot.plot_evolution(transient_solution, evolution_method_names, evolution_time_names)
+    evolution_figure = _plot.plot_evolution_figure(transient_solution, evolution_method_names, evolution_time_names)
     figure_path.append(evolution_figure)
     figure_names.append('evolution_figure')
     
