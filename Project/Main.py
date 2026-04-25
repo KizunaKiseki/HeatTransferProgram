@@ -20,6 +20,8 @@ AUTHOR : Nicholas Heling
 # ! PYTHON TEMPLATES & LIBRARIES !
 import os
 import argparse as ap
+import numpy as np
+import scipy.sparse as sp
 
 # ! PROJECT MODULES !
 import lib._Store as _store
@@ -106,9 +108,6 @@ def transient_solver(mesh_data : dict) -> list[np.ndarray]:
     Returns:
         transient_solution (list[np.ndarray]): A list containing the temperature distributions at each time step for different methods.
     """
-
-    
-    
     # Extract the number of nodes from the mesh data dictionary
     mesh_nodes = mesh_data['XY'].shape[0]
     
@@ -125,35 +124,36 @@ def transient_solver(mesh_data : dict) -> list[np.ndarray]:
     
     for time_index in range(len(method_type)):
         
-        # Builds new matrices and vectors for each method type and time step
-        conduction_matrix = _solve.build_conduction(mesh_data)
-        generation_vector = _solve.build_generation(mesh_data)
-        capacity_matrix = _solve.build_capacity(mesh_data)
+        # Construct Conduction Matrix, Generation Vector, and Capacity Matrix
+        # ? The matrix is reset after each method so that each method is independent ?
+        conduction_matrix = _solve.build_conduction_matrix(mesh_data)
+        generation_vector = _solve.build_generation_vector(mesh_data)
+        capacity_matrix = _solve.build_capacity_matrix(mesh_data)
                 
         # Initialize initial temperature distribution
         initial_temperature = time_steps[time_index] * np.ones(mesh_nodes)
         
+        # Apply Transient Boundary Conditions
+        _solve.transient_BCs(mesh_data, conduction_matrix, generation_vector, initial_temperature)
+        
         # ! Generalized Format from Project Handout !
-        temperature_new = (capacity_matrix - method_type[time_index] * time_steps[time_index] * conduction_matrix).tocsc()
-        temperature_old = (capacity_matrix + (1 - method_type[time_index]) * time_steps[time_index] * conduction_matrix).tocsc()
+        new_matrix = (capacity_matrix - method_type[time_index] * time_steps[time_index] * conduction_matrix).tocsc()
+        old_matrix = (capacity_matrix + (1 - method_type[time_index]) * time_steps[time_index] * conduction_matrix).tocsc()
         generation_time = time_steps[time_index] * generation_vector
         
-        # Initialize initial time for each method
-        initial_time = 0.0
+        # Initialize initial time & temperature data for transient solutions
+        initial_time = 0
+        temperature_data = []
         
-        for time in range(initial_time, TOTAL_TIME, time_steps[time_index]):
-            pass
+        for _ in range(initial_time, TOTAL_TIME, time_steps[time_index]):
+            explicit_solution = sp.linalg.spsolve(new_matrix, old_matrix @ initial_temperature + generation_time)    
+            initial_temperature = explicit_solution
+            temperature_data.append(explicit_solution[temperature_min])
 
-    
-    # Iterate over time steps until total simulation time is reached
-    while time < TOTAL_TIME:
-        explicit_solution = np.linalg.solve(temperature_new, temperature_old @ initial_temperature + generation_time)
-        
-        
-    
-    
+        transient_solution.append(np.array(temperature_data))
+
+
     return transient_solution
-
 
 
 # * MAIN *
@@ -215,7 +215,6 @@ def main():
     figure_names.append('sparsity_figure')
 
     # ! Create Figure 6 ⇒ Steady-State Temperature Distribution !
-  
     figure_path.append(temperature_figure)
     figure_names.append('temperature_figure')
     

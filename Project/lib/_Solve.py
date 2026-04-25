@@ -106,7 +106,7 @@ def build_capacity_matrix(mesh : dict) -> sp.dok_array:
         
         # ! Equation 22 from Project Handout !
         capacity_element = (DELTA_Z * mesh['IC']['C'][interior_index] * mesh['IC']['rho'][interior_index] *
-                          np.abs(np.linalg.det(build_shape_matrix(x_element, y_element))) @ identity_matrix) / 6
+                          np.abs(np.linalg.det(build_shape_matrix(x_element, y_element))) * identity_matrix) / 6
         
         for local_index, global_index in enumerate(node_indices):
             capacity_matrix[global_index, global_index] += capacity_element[local_index, local_index]
@@ -279,8 +279,8 @@ def steady_BCs(mesh : dict, conduction_matrix : sp.dok_array, generation_vector 
                 generation_vector[temperature_node] = -temperature_element
 
             
-def transient_BCs(mesh : dict, capacity_matrix : sp.dok_array, conduction_matrix : sp.dok_array, 
-                  generation_vector : np.ndarray, temperature_vector : np.ndarray) -> None:
+def transient_BCs(mesh : dict, conduction_matrix : sp.dok_array, generation_vector : np.ndarray, 
+                  temperature_vector : np.ndarray) -> None:
     """
     Applies the transient boundary conditions to the capacity matrix, conduction matrix, generation vector, and temperature vector.
     The boundary conditions are fixed temperature and fixed heat flux.
@@ -317,11 +317,29 @@ def transient_BCs(mesh : dict, capacity_matrix : sp.dok_array, conduction_matrix
         
         if np.isfinite(heat_flux_element):
             
-            pass
+            # Get x and y coordinates for the current element
+            x_element = x_nodes[node_indices]
+            y_element = y_nodes[node_indices]
+            
+            # Calculate the distance between the two nodes of the boundary element
+            euclidean_distance = np.sqrt((x_element[1] - x_element[0])**2 + (y_element[1] - y_element[0])**2)
+            
+            # ! Equation 39 from Project Handout !
+            generation_vector[node_indices] += (0.5 * DELTA_Z * heat_flux_element * euclidean_distance * distribution_vector)
+        
         
         if np.isfinite(temperature_element):
             
-            pass
-    
+            for temperature_node in node_indices:
+                
+                # ? All terms in the conduction matrix for the impacted rows should be set to zero.
+                conduction_matrix[temperature_node, :] = 0
+                
+                # ? All terms in the generation vector for the impacted rows should be set to zero.
+                generation_vector[temperature_node] = 0
+                
+                # ? Set initial temperature to ensure it does not change. 
+                temperature_vector[temperature_node] = temperature_element
+            
     
 
