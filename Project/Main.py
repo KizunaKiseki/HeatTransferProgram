@@ -140,7 +140,7 @@ def transient_solver(mesh_data : dict) -> list[np.ndarray]:
         # Apply Transient Boundary Conditions
         _solve.transient_BCs(mesh_data, conduction_matrix, generation_vector, initial_temperature)
         
-        # ! Generalized Format from Project Handout !
+        # ! Generalized Format from Project Handout for Transient Assembly !
         new_matrix = (capacity_matrix - METHOD_TYPES[time_index] * TIME_STEPS[time_index] * conduction_matrix).tocsc()
         old_matrix = (capacity_matrix + (1 - METHOD_TYPES[time_index]) * TIME_STEPS[time_index] * conduction_matrix).tocsc()
         generation_time = TIME_STEPS[time_index] * generation_vector
