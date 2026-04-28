@@ -85,7 +85,6 @@ def steady_solver(mesh_data : dict) -> np.ndarray:
     conduction_matrix = _solve.build_conduction_matrix(mesh_data)
     generation_vector = _solve.build_generation_vector(mesh_data)
     
-    
     # Apply Steady-State Boundary Conditions
     _solve.steady_BCs(mesh_data, conduction_matrix, generation_vector)
     
@@ -124,7 +123,7 @@ def transient_solver(mesh_data : dict) -> list[np.ndarray]:
     x_nodes, y_nodes = _store.get_nodes(mesh_data)
         
     # Identify the node closest to the center of the domain 
-    temperature_min = np.argmin((x_nodes - 0.5)**2 + (y_nodes - 0.5)**2)
+    temperature_min = np.argmin((x_nodes - 1)**2 + (y_nodes - 1)**2)
 
     for time_index in range(len(METHOD_TYPES)):
         
