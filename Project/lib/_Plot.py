@@ -4,8 +4,8 @@ TITLE = Plot Functions
 DATE  = 2026.05.15
 _____________________________________________________________________
 DESCRIPTION:
-1. [Insert Description Here]
-2. ...
+1. Functions for plotting the mesh, sparsity pattern of the conduction matrix, and temperature distributions.
+2. A function for plotting the evolution of temperature over time for different methods and time steps.s
 _____________________________________________________________________
 DISCLAIMER:
 - Portions of this code were developed with AI autocomplete tools.

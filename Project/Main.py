@@ -4,8 +4,13 @@ TITLE = Main Execution File
 DATE  = 2026.05.15
 _____________________________________________________________________
 DESCRIPTION:
-1. [Insert Description Here]
-2. ...
+1. A dual-mesh solver for steady and transient heat conduction problems.
+2. The code reads a mesh from an Excel file and creates a graphical depiction of the mesh.
+3. The graphical depiction of the mesh is saved as a PDF in the Figures directory.
+    - Mesh nodes are plotted as points, and elements are plotted as lines connecting the nodes.
+    - Sparsity pattern of the conduction matrix is visualized and saved as a PDF in the Figures directory.
+    - Steady-state temperature distribution is computed and visualized, then saved as a PDF in the Figures directory.
+    - Transient temperature distribution is computed for different time steps and methods, visualized, and saved as a PDF in the Figures directory.
 _____________________________________________________________________
 DISCLAIMER:
 - Portions of this code were developed with AI autocomplete tools.

@@ -4,8 +4,9 @@ TITLE = Solving Functions
 DATE  = 2026.05.15
 _____________________________________________________________________
 DESCRIPTION:
-1. [Insert Description Here]
-2. ...
+1. Functions for solving steady and transient heat conduction problems.
+2. Builds the dual mesh matrix, shape matrix, capacity matrix, conduction matrix, and generation vector.
+3. Functions to solve for steady-state and transient boundary conditions.
 _____________________________________________________________________
 DISCLAIMER:
 - Portions of this code were developed with AI autocomplete tools.

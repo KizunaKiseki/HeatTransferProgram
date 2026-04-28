@@ -4,8 +4,8 @@ TITLE = Store Functions
 DATE  = 2026.05.15
 _____________________________________________________________________
 DESCRIPTION:
-1. [Insert Description Here]
-2. ...
+1. Functions for reading, writing, and printing mesh data.
+2. A function for extracting node coordinates from the mesh data.
 _____________________________________________________________________
 DISCLAIMER:
 - Portions of this code were developed with AI autocomplete tools.
