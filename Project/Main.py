@@ -171,15 +171,20 @@ def transient_solver(mesh_data : dict) -> list[np.ndarray]:
 
 def main():
     """
-    Summary of what the main does
+    Computes steady & transient state solutions for a given mesh and saves the results as figures in the Figures directory.
+    Steady State Solution:
+        1. Builds the conduction matrix and generation vector from the mesh data.
+        2. Applies steady-state boundary conditions to the conduction matrix and generation vector.
+        3. Solves for the steady-state temperature distribution.
+        4. Plots the sparsity pattern of the conduction matrix and the steady-state temperature
+            distribution, and saves the figures as PDFs in the Figures directory.
     
-    Args:
-    
-    
-    Returns:
-    
-    
-    Raises:
+    Transient State Solution:
+        1. Builds the conduction matrix, generation vector, and capacity matrix from the mesh data.
+        2. Initializes the initial temperature distribution and applies transient boundary conditions.
+        3. Uses a time-stepping loop to compute the temperature distribution at each time step for different methods 
+            (explicit, semi-implicit, implicit).
+        4. Plots the evolution of temperature over time for each method and saves the figure as a PDF in the Figures directory.
     """
     # Initialize figure_path & figure_names for saving figures
     figure_path = []
