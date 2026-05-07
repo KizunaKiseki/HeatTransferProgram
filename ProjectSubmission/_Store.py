@@ -46,7 +46,7 @@ def read_mesh(file_name : str) -> dict:
     types = {
         str: 'name color',
         int: 'id material n0 n1 n2',
-        float: 'x y T q rho k C',
+        float: 'x y T q ρ k Cₚ',
     }
     
     # Invert types dictionary for pandas format

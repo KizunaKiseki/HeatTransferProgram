@@ -106,7 +106,7 @@ def build_capacity_matrix(mesh : dict) -> sp.dok_array:
         interior_index = mesh['IE']['cid'][element_index]
         
         # ! Equation 22 from Project Handout !
-        capacity_element = (DELTA_Z * mesh['IC']['C'][interior_index] * mesh['IC']['rho'][interior_index] *
+        capacity_element = (DELTA_Z * mesh['IC']['Cₚ'][interior_index] * mesh['IC']['ρ'][interior_index] *
                           np.abs(np.linalg.det(build_shape_matrix(x_element, y_element))) * identity_matrix) / 6
         
         I = node_indices.reshape(3,1)
