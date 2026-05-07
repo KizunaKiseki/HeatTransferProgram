@@ -28,8 +28,8 @@ import matplotlib.patches as patches
 import matplotlib.path as path
 
 # ! PROJECT MODULES !
-import lib._Store as _store
-import lib._Solve as _solve
+import _Store as _store
+import _Solve as _solve
 
 
 # * FUNCTION *
