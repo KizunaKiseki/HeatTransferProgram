@@ -12,10 +12,11 @@ DESCRIPTION:
     - Steady-state temperature distribution is computed and visualized, then saved as a PDF in the Figures directory.
     - Transient temperature distribution is computed for different time steps and methods, visualized, and saved as a PDF in the Figures directory.
 _____________________________________________________________________
-HOW-TO:
+HOW-TO RUN:
 -> The code uses argparse to parse the name of the Excel file containing the mesh data as a command-line argument.
 -> The following command can be used to run the code:
-    python (file_path)Main.py (file_path)mesh.xlsx
+    python "(file_path)Main.py" "(file_path)mesh.xlsx"
+-> The quotation marks around the file paths are necessary if the file paths contain spaces.
 _____________________________________________________________________
 DISCLAIMER:
 - Portions of this code were developed with AI autocomplete tools.
@@ -197,7 +198,7 @@ def main():
     
     # Parse Commands
     parser = ap.ArgumentParser(description="Description of the program")
-    parser.add_argument('mesh_xlsx', type = str, help='The name of the Excel file containing the mesh data.')
+    parser.add_argument('mesh_xlsx', type = str, help='How to use: python "(file_path)Main.py" "(file_path)mesh.xlsx"')  
     
     # Parse Argument Command
     # ! python (file_path)Main.py (file_path)mesh.xlsx !
