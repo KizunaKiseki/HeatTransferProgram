@@ -12,7 +12,7 @@ DISCLAIMER:
 - Portions of this code were developed with AI autocomplete tools.
 - These tools were used to improve coding efficiency and syntax accuracy.
 _____________________________________________________________________
-AUTHOR : Nicholas Heling
+AUTHOR : KizunaKiseki
 """
 
 # * IMPORTS *
