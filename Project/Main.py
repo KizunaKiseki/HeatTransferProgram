@@ -29,9 +29,9 @@ import numpy as np
 import scipy.sparse as sp
 
 # ! PROJECT MODULES !
-import lib._Store as _store
-import lib._Solve as _solve
-import lib._Plot as _plot
+import src._Store as _store
+import src._Solve as _solve
+import src._Plot as _plot
 
 # * VARIABLES *
 # ? ================================================================ ?
