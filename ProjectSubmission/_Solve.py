@@ -19,8 +19,6 @@ AUTHOR : KizunaKiseki
 # ? ================================================================ ?
 
 # ! PYTHON TEMPLATES & LIBRARIES !
-from threading import local
-
 import numpy as np
 import scipy.sparse as sp
 
@@ -28,7 +26,6 @@ import matplotlib.pyplot as pl
 
 # ! PROJECT MODULES !
 import _Store as _store
-import _Plot as _plot
 
 # * VARIABLES *
 # ? ================================================================ ?

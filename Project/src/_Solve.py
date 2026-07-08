@@ -28,7 +28,6 @@ import matplotlib.pyplot as pl
 
 # ! PROJECT MODULES !
 import src._Store as _store
-import src._Plot as _plot
 
 # * VARIABLES *
 # ? ================================================================ ?
